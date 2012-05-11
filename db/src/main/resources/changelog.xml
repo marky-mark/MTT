@@ -8,16 +8,47 @@
 
     <changeSet id="1" author="mark" dbms="mysql">
 
-      <createTable tableName="user">
+      <createTable tableName="usr">
          <column name="id" type="int">
              <constraints primaryKey="true" nullable="false"/>
          </column>
-         <column name="username" type="varchar(50)">
+         <column name="usrname" type="varchar(50)">
              <constraints nullable="false"/>
          </column>
-         <column name="password" type="boolean" defaultValue="varchar(50)"/>
+         <column name="passwrd" type="varchar(100)">
+             <constraints nullable="false"/>
+         </column>
       </createTable>
 
+      <createTable tableName="task">
+          <column name="id" type="int">
+            <constraints primaryKey="true" nullable="false"/>
+          </column>
+          <column name="title" type="varchar(100)"/>
+          <column name="description" type="varchar(500)"/>
+          <column name="usr_id" type="int"/>
+      </createTable>
+
+      <addForeignKeyConstraint constraintName="fk_task_usr"
+                                 baseTableName="task" baseColumnNames="usr_id"
+                                 referencedTableName="usr" referencedColumnNames="id"/>
+
+
     </changeSet>
+
+    <changeSet id="add-date-column" author="mark" dbms="mysql">
+        <addColumn tableName="task">
+            <column name="creation_date" type="DATETIME"/>
+        </addColumn>
+    </changeSet>
+
+    <!--<changeSet id="insert-default-user" dbms="mysql">-->
+        <!--<insert tableName="usr">-->
+            <!--<column name="id" value="1"/>-->
+            <!--<column name="usrname" value="test"/>-->
+            <!--&lt;!&ndash;Set the password to encrypted value of 'abc123'&ndash;&gt;-->
+            <!--&lt;!&ndash;<column name="password" value=""/>&ndash;&gt;-->
+        <!--</insert>-->
+    <!--</changeSet>-->
 
 </databaseChangeLog>
