@@ -1,0 +1,14 @@
+*.iml
+*.ipr
+*.iws
+.idea
+target
+.classpath
+.project
+.settings
+*symbolMaps*
+*.cache.*
+*.nocache.*
+seller.h2.db
+atlassian-ide-plugin.xml
+build.log
