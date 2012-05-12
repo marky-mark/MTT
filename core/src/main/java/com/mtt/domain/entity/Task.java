@@ -28,6 +28,9 @@ public class Task {
     @Column(name = "creation_date", nullable = false)
     private Date createdDate;
 
+    @Column(name = "checked", nullable = false)
+    private boolean checked;
+
     @OneToOne
     @JoinColumn(name = "usr_id")
     private User user;
@@ -66,6 +69,14 @@ public class Task {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
     @Override

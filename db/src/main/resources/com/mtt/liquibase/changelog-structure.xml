@@ -21,7 +21,7 @@
       </createTable>
 
       <createTable tableName="task">
-          <column name="id" type="int">
+          <column name="id" type="int" autoIncrement="true">
             <constraints primaryKey="true" nullable="false"/>
           </column>
           <column name="title" type="varchar(100)"/>
@@ -38,6 +38,14 @@
                                  baseTableName="task" baseColumnNames="usr_id"
                                  referencedTableName="usr" referencedColumnNames="id"/>
 
+    </changeSet>
+
+    <changeSet id="add-checkbox-function" author="mark" dbms="mysql">
+        <addColumn tableName="task">
+            <column name="checked" type="TINYINT(1)" defaultValue="0">
+                 <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 
     <!--<changeSet id="add-salt-for-password" author="mkelly" dbms="mysql">-->

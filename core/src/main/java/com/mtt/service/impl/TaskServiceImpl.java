@@ -7,7 +7,9 @@ import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.repository.TaskRepository;
 import com.mtt.repository.UserRepository;
 import com.mtt.service.TaskService;
-import com.mtt.service.bean.CreateTaskRequest;
+import com.mtt.service.request.CreateTaskRequest;
+import com.mtt.service.request.UpdateTaskRequest;
+import com.sun.source.util.TaskListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +71,7 @@ public final class TaskServiceImpl implements TaskService {
 
     /**
      * Create a Task - MUST be associated with a User
-     * @param createTaskRequest  bean to represent the data
+     * @param createTaskRequest  request to represent the data
      * @return the task created
      */
     @Override
@@ -90,5 +92,23 @@ public final class TaskServiceImpl implements TaskService {
         }
 
         throw new UserNotFoundException(createTaskRequest.getUserId());
+    }
+
+    @Override
+    public Task update(UpdateTaskRequest updateTaskRequest) {
+
+        Task task = taskRepository.findOne(updateTaskRequest.getId());
+
+        if(task != null) {
+            task.setDescription(updateTaskRequest.getDescription());
+            task.setTitle(updateTaskRequest.getTitle());
+            task.setChecked(updateTaskRequest.isChecked());
+            taskRepository.save(task);
+
+            return task;
+        }
+
+        throw new TaskNotFoundException(updateTaskRequest.getId());
+
     }
 }

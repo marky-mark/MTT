@@ -1,4 +1,4 @@
-package com.mtt.service.bean;
+package com.mtt.service.request;
 
 public class CreateTaskRequest {
 

@@ -1,7 +1,8 @@
 package com.mtt.service;
 
 import com.mtt.domain.entity.Task;
-import com.mtt.service.bean.CreateTaskRequest;
+import com.mtt.service.request.CreateTaskRequest;
+import com.mtt.service.request.UpdateTaskRequest;
 
 import java.util.List;
 
@@ -33,8 +34,15 @@ public interface TaskService {
 
     /**
      * Create a new task
-     * @param createTaskRequest  bean to represent the data
+     * @param createTaskRequest  request to represent the data
      * @return the task
      */
     Task create(CreateTaskRequest createTaskRequest);
+
+    /**
+     * Update a task
+     * @param updateTaskRequest task to update
+     * @return the task
+     */
+    Task update(UpdateTaskRequest updateTaskRequest);
 }

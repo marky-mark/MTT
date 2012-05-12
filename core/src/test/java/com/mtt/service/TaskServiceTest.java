@@ -7,8 +7,10 @@ import com.mtt.domain.exception.TaskNotFoundException;
 import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.repository.TaskRepository;
 import com.mtt.repository.UserRepository;
-import com.mtt.service.bean.CreateTaskRequest;
 import com.mtt.service.impl.TaskServiceImpl;
+import com.mtt.service.request.CreateTaskRequest;
+import com.mtt.service.request.UpdateTaskRequest;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -112,5 +114,43 @@ public class TaskServiceTest {
         Task returned = taskService.delete(1L);
 
         assertThat(returned, equalTo(taskToReturn));
+    }
+
+    @Test(expected = TaskNotFoundException.class)
+    public void testUpdateAdIdNotFound() {
+        when(taskRepository.findOne(1L)).thenReturn(null);
+
+        UpdateTaskRequest updateTaskRequest = new UpdateTaskRequest();
+        updateTaskRequest.setDescription("helllo");
+        updateTaskRequest.setChecked(true);
+
+        taskService.update(updateTaskRequest);
+    }
+
+    @Test
+    public void testUpdateTask() {
+        Task taskToReturn = TestUtils.createTask(1L);
+        User testUser = TestUtils.createUser(1L);
+        taskToReturn.setChecked(false);
+        taskToReturn.setDescription("Please change");
+        taskToReturn.setTitle("Please Change");
+        taskToReturn.setUser(testUser);
+        DateTime datetime = new DateTime();
+        taskToReturn.setCreatedDate(datetime.toDate());
+        when(taskRepository.findOne(1L)).thenReturn(taskToReturn);
+
+        UpdateTaskRequest updateTaskRequest = new UpdateTaskRequest();
+        updateTaskRequest.setDescription("hello");
+        updateTaskRequest.setChecked(true);
+        updateTaskRequest.setTitle("changed");
+        updateTaskRequest.setId(1L);
+
+        Task returned = taskService.update(updateTaskRequest);
+
+        assertThat(returned.getUser(), equalTo(testUser));
+        assertThat(returned.getCreatedDate(), equalTo(datetime.toDate()));
+        assertThat(returned.getTitle(), equalTo("changed"));
+        assertThat(returned.isChecked(), equalTo(true));
+        assertThat(returned.getDescription(), equalTo("hello"));
     }
 }
