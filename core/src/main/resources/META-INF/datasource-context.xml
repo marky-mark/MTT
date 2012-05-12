@@ -6,14 +6,14 @@
 
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${SpringMavenHibernate.jdbc.driver:com.mysql.jdbc.Driver}"/>
-        <property name="jdbcUrl" value="${SpringMavenHibernate.jdbc.url:jdbc:mysql://localhost:3306/test}"/>
-        <property name="user" value="${SpringMavenHibernate.jdbc.username:root}"/>
-        <property name="password" value="${SpringMavenHibernate.jdbc.password:markpass123}"/>
-        <property name="minPoolSize" value="${SpringMavenHibernate.jdbc.pool.min:5}"/>
-        <property name="maxPoolSize" value="${SpringMavenHibernate.jdbc.pool.max:100}"/>
+        <property name="driverClass" value="${mtt.jdbc.driver:com.mysql.jdbc.Driver}"/>
+        <property name="jdbcUrl" value="${mtt.jdbc.url:jdbc:mysql://localhost:3306/mtt}"/>
+        <property name="user" value="${mtt.jdbc.username:root}"/>
+        <property name="password" value="${mtt.jdbc.password:root123}"/>
+        <property name="minPoolSize" value="${mtt.jdbc.pool.min:5}"/>
+        <property name="maxPoolSize" value="${mtt.jdbc.pool.max:100}"/>
         <property name="maxIdleTime" value="21600"/>
-        <property name="idleConnectionTestPeriod" value="${SpringMavenHibernate.jdbc.pool.idle.connection.timeout:14400}"/>
+        <property name="idleConnectionTestPeriod" value="${mtt.jdbc.pool.idle.connection.timeout:14400}"/>
     </bean>
 
    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -27,7 +27,7 @@
                <property name="database" value="H2"/>
            </bean>
        </property>
-       <!--<property name="persistenceUnitName" value="com.mtt.test"/>-->
+       <property name="persistenceUnitName" value="mtt.persistence"/>
    </bean>
 
 </beans>

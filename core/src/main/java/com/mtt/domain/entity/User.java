@@ -1,0 +1,95 @@
+package com.mtt.domain.entity;
+
+
+import com.mtt.security.HashedAndSaltedPassword;
+import org.springframework.util.Assert;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "usr")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
+
+    @Column(name = "usrname", nullable = false)
+    private String username;
+
+//    @Column(name = "salt", nullable = false)
+//    private String salt;
+
+    @Column(name = "passwrd", nullable = false)
+    private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUserName() {
+        return username;
+    }
+
+    public void setUserName(String userName) {
+        this.username = userName;
+    }
+
+    public String getPasswrd() {
+        return password;
+    }
+
+//    public String getSalt() {
+//        return salt;
+//    }
+
+    public void setPassword(String plainTextPassword) {
+        Assert.notNull(plainTextPassword);
+        HashedAndSaltedPassword password = new HashedAndSaltedPassword(plainTextPassword);
+        this.password = password.getPassword();
+//        this.salt = password.getSalt();
+    }
+
+    /**
+     * Verify the password matches the user's password
+     *
+     * @param plaintextPassword an unencrypted password
+     * @return true if matched, false otherwise
+     */
+    public Boolean verifyPassword(String plaintextPassword) {
+        return HashedAndSaltedPassword.comparePassword(plaintextPassword, this.password);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        return id != null && id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "id=" + id
+                + ", username='" + username + '\''
+                + '}';
+    }
+}
