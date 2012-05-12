@@ -6,10 +6,12 @@ import com.mtt.repository.UserRepository;
 import com.mtt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service to find users in the system
  */
+@Transactional
 @Service
 public final class UserServiceImpl implements UserService
 {

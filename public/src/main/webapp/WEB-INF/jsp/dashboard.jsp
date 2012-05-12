@@ -1,0 +1,1 @@
+hello ${user.username} ....your id is ${user.id} ..... with your password as ${user.password}

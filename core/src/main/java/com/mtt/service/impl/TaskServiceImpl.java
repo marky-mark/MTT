@@ -19,6 +19,7 @@ import java.util.List;
  * Service for tasks
  */
 @Service
+@Transactional
 public final class TaskServiceImpl implements TaskService {
 
     @Autowired

@@ -33,15 +33,15 @@ public class User {
         return id;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUserName(String userName) {
+    public void setUsername(String userName) {
         this.username = userName;
     }
 
-    public String getPasswrd() {
+    public String getPassword() {
         return password;
     }
 
