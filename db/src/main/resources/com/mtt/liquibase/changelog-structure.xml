@@ -26,19 +26,18 @@
           </column>
           <column name="title" type="varchar(100)"/>
           <column name="description" type="varchar(500)"/>
-          <column name="usr_id" type="int"/>
+          <column name="usr_id" type="int">
+              <constraints nullable="false"/>
+          </column>
+          <column name="creation_date" type="timestamp" defaultValueDate="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
       </createTable>
 
       <addForeignKeyConstraint constraintName="fk_task_usr"
                                  baseTableName="task" baseColumnNames="usr_id"
                                  referencedTableName="usr" referencedColumnNames="id"/>
 
-    </changeSet>
-
-    <changeSet id="add-date-column" author="mark" dbms="mysql">
-        <addColumn tableName="task">
-            <column name="creation_date" type="DATETIME"/>
-        </addColumn>
     </changeSet>
 
     <!--<changeSet id="add-salt-for-password" author="mkelly" dbms="mysql">-->

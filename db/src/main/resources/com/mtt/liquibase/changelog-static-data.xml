@@ -17,4 +17,13 @@
         </insert>
     </changeSet>
 
+    <changeSet id="insert-tasks" author="mark" dbms="mysql">
+        <insert tableName="task">
+            <column name="id" value="1"/>
+            <column name="title" value="test1"/>
+            <column name="description" value="this is my first description"/>
+            <column name="usr_id" value="1"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
