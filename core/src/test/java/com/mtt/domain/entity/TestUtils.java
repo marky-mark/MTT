@@ -11,4 +11,10 @@ public final class TestUtils {
         ReflectionTestUtils.setField(user, "id", id);
         return user;
     }
+
+    public static Task createTask(Long id) {
+        Task task = new Task();
+        ReflectionTestUtils.setField(task, "id", id);
+        return task;
+    }
 }
