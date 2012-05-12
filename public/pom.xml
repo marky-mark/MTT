@@ -86,6 +86,14 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>core</artifactId>
             </dependency>
+            <dependency>
+                <groupId>net.jawr</groupId>
+                <artifactId>jawr</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>net.jawr</groupId>
+                <artifactId>jawr-bundle-processor</artifactId>
+            </dependency>
     </dependencies>
 
 </project>
