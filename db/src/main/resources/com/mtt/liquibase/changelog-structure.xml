@@ -13,7 +13,7 @@
              <constraints primaryKey="true" nullable="false"/>
          </column>
          <column name="usrname" type="varchar(50)">
-             <constraints nullable="false"/>
+             <constraints nullable="false" unique="true"/>
          </column>
          <column name="passwrd" type="varchar(100)">
              <constraints nullable="false"/>
@@ -48,16 +48,5 @@
             <!--</column>-->
         <!--</addColumn>-->
     <!--</changeSet>-->
-
-    <changeSet id="insert-default-user" author="mark" dbms="mysql">
-        <insert tableName="usr">
-            <column name="id" value="1"/>
-            <column name="usrname" value="test"/>
-            <!--Set the password to encrypted value of 'abc123'-->
-            <column name="passwrd" value="sE7irHZeY/hp3dN0Y6WSQl1inF6un0+u5uafLXc/hGs="/>
-            <!--<column name="passwrd" value="NhRtGBON6ZZOmbzBr0+pIfaau6EHIc1MBPlBx+y93a0="/>-->
-            <!--<column name="salt" value="EqWuvs1+qBl1lDyxCOXGHA=="/>-->
-        </insert>
-    </changeSet>
 
 </databaseChangeLog>

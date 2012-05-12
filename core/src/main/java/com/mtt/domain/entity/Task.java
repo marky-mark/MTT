@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -25,6 +27,10 @@ public class Task {
 
     @Column(name = "creation_date", nullable = false)
     private Date createdDate;
+
+    @OneToOne
+    @JoinColumn(name = "usr_id")
+    private User user;
 
     public Long getId() {
         return id;
@@ -56,5 +62,32 @@ public class Task {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Task)) {
+            return false;
+        }
+
+        Task task = (Task) o;
+
+        return id != null && id.equals(task.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : super.hashCode();
     }
 }

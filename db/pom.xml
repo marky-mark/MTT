@@ -31,7 +31,7 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>2.0.1</version>
                 <configuration>
-                    <changeLogFile>changelog.xml</changeLogFile>
+                    <changeLogFile>com/mtt/liquibase/changelog-master.xml</changeLogFile>
                     <driver>com.mysql.jdbc.Driver</driver>
                     <url>jdbc:mysql://localhost:3306/mtt</url>
                     <username>root</username>

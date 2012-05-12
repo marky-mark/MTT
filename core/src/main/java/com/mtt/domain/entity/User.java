@@ -20,7 +20,7 @@ public class User {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "usrname", nullable = false)
+    @Column(name = "usrname", nullable = false, unique = true)
     private String username;
 
 //    @Column(name = "salt", nullable = false)
