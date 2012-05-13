@@ -33,6 +33,10 @@ public final class DashBoardController {
     //Model map
     public static final String USER_MODEL_NAME = "user";
     public static final String TASKS_MODEL_NAME = "tasks";
+    public static final String DESC_SIZE_NAME = "descSize";
+    public static final int DESC_SIZE = 500;
+    public static final String TITLE_SIZE_NAME = "descSize";
+    public static final int TITLE_SIZE = 100;
 
     @Autowired
     public UserService userService;
@@ -52,10 +56,7 @@ public final class DashBoardController {
 
         Long userId = 1L;
 
-        map.put(USER_MODEL_NAME, userService.find(userId));
-        map.put(TASKS_MODEL_NAME, taskService.findByUser(userId));
-
-        return new ModelAndView(VIEW_NAME, map);
+        return populateCommonAttributes(map, userId);
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "create-task")
@@ -66,8 +67,14 @@ public final class DashBoardController {
 
         taskService.create(convert(userId, createTaskBean));
 
+        return populateCommonAttributes(map, userId);
+    }
+
+    private ModelAndView populateCommonAttributes(Map<String, Object> map, Long userId) {
         map.put(USER_MODEL_NAME, userService.find(userId));
         map.put(TASKS_MODEL_NAME, taskService.findByUser(userId));
+        map.put(DESC_SIZE_NAME, DESC_SIZE);
+        map.put(TITLE_SIZE_NAME, TITLE_SIZE);
 
         return new ModelAndView(VIEW_NAME, map);
     }

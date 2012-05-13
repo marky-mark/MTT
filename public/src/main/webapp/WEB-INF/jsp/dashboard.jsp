@@ -14,20 +14,32 @@
         </div>
 
         <div id="content">
-            <h1>hello ${user.username}</h1>
+            <h1>Welcome '${user.username}'</h1>
 
             <h2>Your current tasks</h2>
             <ul>
                 <c:forEach var="task" items="${tasks}">
-                    <li><input type="checkbox" value="${task.checked}"/> : ${task.createdDate} : ${task.title} : ${task.description}</li>
+                    <div class="border-control">
+                        <li>
+                            <ul>
+                                <input type="checkbox" value="${task.checked}"/> ${task.createdDate} <h2 class="title">${task.title}</h2>
+                                <div class="description">${task.description}</div>
+                            </ul>
+                        </li>
+                    </div>
                 </c:forEach>
             </ul>
-            <form action="/dashboard" method="POST">
-                <input type="text" name="title"/>
-                <input type="text" name="description" />
-                <input type="submit" name="create-task" value="Create task" />
-            </form>
-        </div>
-    </div>
+
+            <div id="create-task">
+                <form action="/dashboard" method="POST">
+                    <p>Title: <input type="text" id="title" name="title" size="${titleSize}"/></p>
+                    <p id="description-text">Description: <textarea name="description" cols="40" rows="5"></textarea></p>
+                    <%--<p>Description: <input type="text" id="description" name="description" size="${descSize}"/></p>--%>
+                    <input type="submit" id="create-task-button" name="create-task" value="Create task" />
+                </form>
+            </div>
+		</div>
+	</div>
+ 	<div id="footer"><h1>Developed by Mark Kelly</h1></div>
 </body>
 </html>
