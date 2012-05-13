@@ -175,5 +175,14 @@ textarea {
     color: #9A1212;
 }
 
+.update-button {
+    margin: 10px;
+    color: #330099;
+}
+
+.cancel-button {
+    margin-left: 10px;
+}
+
 
 

@@ -6,6 +6,7 @@
 <head>
     <title>Task Dashboard</title>
     <jawr:style src="/bundles/mtt.css"/>
+    <jawr:script src="/bundles/mtt.js"/>
 </head>
 <body>
     <div id="container">
@@ -16,32 +17,58 @@
         <div id="content">
             <h1>Welcome '${user.username}'</h1>
 
+            <h2>Create a new task</h2>
+
+            <div id="create-task">
+                <form action="/dashboard" method="POST">
+                    <p>Title <input type="text" id="title" name="title" size="${titleSize}"/></p>
+                    <p id="description-text">Description <textarea name="description" cols="40" rows="5"></textarea></p>
+                    <input type="submit" id="create-task-button" name="create-task" value="Create task" />
+                </form>
+            </div>
+
             <h2>Your current tasks</h2>
+
             <ul>
                 <c:forEach var="task" items="${tasks}">
                     <div class="border-control">
                         <li>
                             <ul>
-                                <input type="checkbox" value="${task.checked}"/> ${task.createdDate} <h2 class="title">${task.title}</h2>
-                                <div class="description">${task.description}</div>
-                                <form class="delete" action="/dashboard" method="POST">
-                                    <input type="hidden" name="taskId" value="${task.id}"/>
-                                    <input type="submit" class="delete-button" id="delete-task-button" name="delete-task" value="Delete" />
-                                </form>
+                                <div id="text-task-${task.id}">
+                                    <form action="/dashboard" method="POST" >
+                                        <input type="hidden" name="taskId" value="${task.id}"/>
+                                        <input name="checked" type="checkbox" value="true" <c:if test="${task.checked == true}">checked="checked" </c:if> onclick="this.form.submit();" />
+                                    </form>
+                                    <div  onclick="editTask(${task.id})">
+                                        ${task.createdDate} <h2 class="title">${task.title}</h2>
+                                        <div class="description">${task.description}</div>
+                                        <form class="delete" action="/dashboard" method="POST">
+                                            <input type="hidden" name="taskId" value="${task.id}"/>
+                                            <input type="submit" class="delete-button" id="delete-task-button" name="delete-task" value="Delete" />
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div id="text-task-${task.id}-edit" hidden="true">
+                                    <form class="update" action="/dashboard" method="POST">
+                                        <input name="checked" type="checkbox" value="true" <c:if test="${task.checked == true}">checked="checked"</c:if> />
+                                        ${task.createdDate} <p>Title <input type="text" id="title" name="title" size="${titleSize}" value="${task.title}"></p>
+                                        <p>Description <textarea name="description" cols="40" rows="5">${task.description}</textarea></p>
+                                        <input type="hidden" name="id" value="${task.id}"/>
+                                        <input type="submit" class="update-button" id="update-task-button" name="update-task" value="Update" />
+                                    </form>
+                                    <input type="submit" class="cancel-button" name="cancel-task" value= "Cancel" onclick="unEditTask(${task.id})" />
+                                    <form class="delete" action="/dashboard" method="POST">
+                                        <input type="hidden" name="taskId" value="${task.id}"/>
+                                        <input type="submit" class="delete-button" id="delete-task-button" name="delete-task" value="Delete" />
+                                    </form>
+                                </div>
                             </ul>
                         </li>
                     </div>
                 </c:forEach>
             </ul>
 
-            <div id="create-task">
-                <form action="/dashboard" method="POST">
-                    <p>Title: <input type="text" id="title" name="title" size="${titleSize}"/></p>
-                    <p id="description-text">Description: <textarea name="description" cols="40" rows="5"></textarea></p>
-                    <%--<p>Description: <input type="text" id="description" name="description" size="${descSize}"/></p>--%>
-                    <input type="submit" id="create-task-button" name="create-task" value="Create task" />
-                </form>
-            </div>
 		</div>
 	</div>
  	<div id="footer"><h1>Developed by Mark Kelly</h1></div>

@@ -1,10 +1,12 @@
 package com.mtt.controller;
 
 import com.mtt.bean.CreateTaskBean;
+import com.mtt.domain.entity.Task;
 import com.mtt.domain.exception.TaskNotFoundException;
 import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
 import com.mtt.service.request.CreateTaskRequest;
+import com.mtt.service.request.UpdateTaskRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,9 @@ public final class DashBoardController {
 
     public static final String VIEW_NAME = "dashboard";
 
-    public static final String BEAN_NAME = "createTaskBean";
+    //Beans
+    public static final String CREATE_BEAN_NAME = "createTaskBean";
+    public static final String UPDATE_BEAN_NAME = "updateTaskBean";
 
     //Model map
     public static final String USER_MODEL_NAME = "user";
@@ -69,7 +73,7 @@ public final class DashBoardController {
      * @return the view
      */
     @RequestMapping(method = RequestMethod.POST, params = "create-task")
-    public ModelAndView createTask(@ModelAttribute(BEAN_NAME) CreateTaskBean createTaskBean) {
+    public ModelAndView createTask(@ModelAttribute(CREATE_BEAN_NAME) CreateTaskBean createTaskBean) {
 
         Map<String, Object> map = new HashMap<String, Object>();
         Long userId = 1L;
@@ -92,6 +96,54 @@ public final class DashBoardController {
 
         try {
             taskService.delete(new Long(taskId));
+        } catch (NumberFormatException e) {
+            LOGGER.error("Attempted to delete a task with an invalid id" + taskId);
+        } catch (TaskNotFoundException e) {
+            LOGGER.error("Attempted to delete a task that does not exist id:" + taskId);
+        }
+
+        return populateCommonAttributes(map, userId);
+    }
+
+    /**
+     * Update a user's specified task
+     * @param updateTaskBean update details
+     * @return the view
+     */
+    @RequestMapping(method = RequestMethod.POST, params = "update-task")
+    public ModelAndView updateTask(@ModelAttribute("updateTaskBean")UpdateTaskRequest updateTaskBean) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        Long userId = 1L;
+
+        try {
+            taskService.update(updateTaskBean);
+        } catch (TaskNotFoundException e) {
+            LOGGER.error("Attempted to update a task that does not exist id:" + updateTaskBean.getId());
+        }
+
+        return populateCommonAttributes(map, userId);
+    }
+
+    @RequestMapping(method = RequestMethod.POST/*, params = "update-check-of-task"*/)
+    public ModelAndView updateCheckOfTask(boolean checked, String taskId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        Long userId = 1L;
+
+        try {
+            Long tId = new Long(taskId);
+            Task task = taskService.find(tId);
+            UpdateTaskRequest updateTaskRequest = new UpdateTaskRequest();
+
+            //This is the only value that changes
+            updateTaskRequest.setChecked(checked);
+
+            //The rest stay the same
+            updateTaskRequest.setId(task.getId());
+            updateTaskRequest.setTitle(task.getTitle());
+            updateTaskRequest.setDescription(task.getDescription());
+
+            taskService.update(updateTaskRequest);
         } catch (NumberFormatException e) {
             LOGGER.error("Attempted to delete a task with an invalid id" + taskId);
         } catch (TaskNotFoundException e) {

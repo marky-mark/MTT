@@ -1,9 +1,11 @@
 package com.mtt.controller;
 
 import com.mtt.bean.CreateTaskBean;
+import com.mtt.domain.entity.Task;
 import com.mtt.domain.exception.TaskNotFoundException;
 import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
+import com.mtt.service.request.UpdateTaskRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -14,6 +16,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * These are mostly test cases to make sure the system handles false values gracefully
+ */
 public class DashBoardControllerTest {
 
     private DashBoardController controller;
@@ -81,4 +86,58 @@ public class DashBoardControllerTest {
         assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
         assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
     }
+
+    @Test
+    public void testUpdateNonExistingId() {
+        UpdateTaskRequest request = new UpdateTaskRequest();
+        request.setId(1L);
+        when(taskService.update(request)).thenThrow(new TaskNotFoundException(1L));
+
+        ModelAndView modelAndView = controller.updateTask(request);
+
+        assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
+    }
+
+    @Test
+    public void testUpdateCheckInvalidId() {
+        ModelAndView modelAndView = controller.updateCheckOfTask(true, null);
+
+        assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
+    }
+
+    @Test
+    public void testUpdateCheckNonId() {
+        ModelAndView modelAndView = controller.updateCheckOfTask(true, "not an id");
+
+        assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
+    }
+
+    @Test
+    public void testUpdateCheckIdNotInSystem() {
+        when(taskService.find(1L)).thenThrow(new TaskNotFoundException(1L));
+        ModelAndView modelAndView = controller.updateCheckOfTask(true, "1");
+
+        assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
+    }
+
+    @Test
+    public void testUpdateCheckHappyPath() {
+        Task task = new Task();
+        ReflectionTestUtils.setField(task, "id", 1L);
+        when(taskService.find(1L)).thenReturn(task);
+        ModelAndView modelAndView = controller.updateCheckOfTask(true, "1");
+
+        assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
+        assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
+    }
+
 }
