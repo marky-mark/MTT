@@ -170,5 +170,10 @@ textarea {
     width: 330px;
 }
 
+.delete-button {
+    margin: 10px;
+    color: #9A1212;
+}
+
 
 

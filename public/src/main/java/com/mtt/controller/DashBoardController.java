@@ -1,9 +1,12 @@
 package com.mtt.controller;
 
 import com.mtt.bean.CreateTaskBean;
+import com.mtt.domain.exception.TaskNotFoundException;
 import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
 import com.mtt.service.request.CreateTaskRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +26,8 @@ import static com.mtt.controller.DashBoardController.PAGE_PATH;
 @Controller
 @RequestMapping(value = PAGE_PATH)
 public final class DashBoardController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DashBoardController.class);
 
     public static final String PAGE_PATH = "/dashboard";
 
@@ -45,8 +50,7 @@ public final class DashBoardController {
     public TaskService taskService;
 
     /**
-     *
-     * @return
+     * @return the page
      */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showPage() {
@@ -59,6 +63,11 @@ public final class DashBoardController {
         return populateCommonAttributes(map, userId);
     }
 
+    /**
+     * to create a new task associated to the user
+     * @param createTaskBean task details
+     * @return the view
+     */
     @RequestMapping(method = RequestMethod.POST, params = "create-task")
     public ModelAndView createTask(@ModelAttribute(BEAN_NAME) CreateTaskBean createTaskBean) {
 
@@ -66,6 +75,28 @@ public final class DashBoardController {
         Long userId = 1L;
 
         taskService.create(convert(userId, createTaskBean));
+
+        return populateCommonAttributes(map, userId);
+    }
+
+    /**
+     * Delete a specific task
+     * @param taskId  task to be deleted
+     * @return  the view
+     */
+    @RequestMapping(method = RequestMethod.POST, params = "delete-task")
+    public ModelAndView deleteTask(String taskId) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        Long userId = 1L;
+
+        try {
+            taskService.delete(new Long(taskId));
+        } catch (NumberFormatException e) {
+            LOGGER.error("Attempted to delete a task with an invalid id" + taskId);
+        } catch (TaskNotFoundException e) {
+            LOGGER.error("Attempted to delete a task that does not exist id:" + taskId);
+        }
 
         return populateCommonAttributes(map, userId);
     }

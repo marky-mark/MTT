@@ -24,6 +24,10 @@
                             <ul>
                                 <input type="checkbox" value="${task.checked}"/> ${task.createdDate} <h2 class="title">${task.title}</h2>
                                 <div class="description">${task.description}</div>
+                                <form class="delete" action="/dashboard" method="POST">
+                                    <input type="hidden" name="taskId" value="${task.id}"/>
+                                    <input type="submit" class="delete-button" id="delete-task-button" name="delete-task" value="Delete" />
+                                </form>
                             </ul>
                         </li>
                     </div>
