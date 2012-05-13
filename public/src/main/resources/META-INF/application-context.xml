@@ -3,9 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
+		                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
     <context:property-placeholder
             location="file:${user.home}/mtt/application.properties"
@@ -15,43 +16,43 @@
     <context:annotation-config/>
     <tx:annotation-driven/>
 
-
     <context:component-scan base-package="com.mtt.service"/>
+    <context:component-scan base-package="com.mtt.security" scoped-proxy="targetClass" />
 
     <jpa:repositories base-package="com.mtt.repository"/>
 
     <import resource="datasource-context.xml"/>
 
-    <!--<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
-        <!--<property name="securityManager" ref="securityManager"/>-->
-        <!--<property name="loginUrl" value="/login" />-->
-        <!--<property name="successUrl" value="/dashboard" />-->
-        <!--<property name="unauthorizedUrl" value="/dashboard" />-->
-        <!--<property name="filterChainDefinitions">-->
-            <!--<value>-->
-                <!--/dashboard = authc-->
-                <!--/** = authc-->
-            <!--</value>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login" />
+        <property name="successUrl" value="/dashboard" />
+        <property name="unauthorizedUrl" value="/dashboard" />
+        <property name="filterChainDefinitions">
+            <value>
+                /dashboard = authc
+                /** = authc
+            </value>
+        </property>
+    </bean>
 
-    <!--<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">-->
-        <!--&lt;!&ndash; Single realm app.  If you have multiple realms, use the 'realms' property instead. &ndash;&gt;-->
-        <!--<property name="realm" ref="mttRealm"/>-->
-        <!--&lt;!&ndash; By default the servlet container sessions will be used.  Uncomment this line-->
-             <!--to use shiro's native sessions (see the JavaDoc for more): &ndash;&gt;-->
-        <!--&lt;!&ndash; <property name="sessionMode" value="native"/> &ndash;&gt;-->
-    <!--</bean>-->
-    <!--<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" depends-on="userRepository">
+        <property name="realm" ref="mttRealm"/>
+    </bean>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
-    <!--&lt;!&ndash; Define the Shiro Realm implementation you want to use to connect to your back-end &ndash;&gt;-->
-    <!--&lt;!&ndash; security datasource: &ndash;&gt;-->
-    <!--<bean id="mttRealm" class="com.mtt.security.MTTRealm">-->
-        <!--<property name="credentialsMatcher" ref="allowCred"/>-->
-        <!--<property name="cachingEnabled" value="false"/>-->
-    <!--</bean>-->
+    <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
+    <!-- security datasource: -->
+    <bean id="mttRealm" class="com.mtt.security.MTTRealm">
+        <property name="credentialsMatcher" ref="allowCred"/>
+        <property name="cachingEnabled" value="false"/>
+    </bean>
 
-    <!--<bean id="allowCred" class="org.apache.shiro.authc.credential.AllowAllCredentialsMatcher" />-->
+    <bean id="allowCred" class="org.apache.shiro.authc.credential.AllowAllCredentialsMatcher" />
 
+
+    <bean id="authenticatedUserSession" class="com.mtt.security.impl.ShiroSubjectUserSession" scope="session">
+        <aop:scoped-proxy/>
+    </bean>
 
 </beans>

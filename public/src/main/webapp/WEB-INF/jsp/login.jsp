@@ -20,8 +20,11 @@
             <h2>Please Login</h2>
 
             <div id="login">
-                <p>Username <input type="text" id="username" name="title" size="${titleSize}"/></p>
-                <p>Password <input type="password" id="password" name="title" size="${titleSize}"/></p>
+                <form class="update" action="/login" method="POST">
+                    <p>Username <input type="text" id="username" name="username" name="title" size="${titleSize}"/></p>
+                    <p>Password <input type="password" id="password" name="password" name="title" size="${titleSize}"/></p>
+                    <input type="submit" value="login" />
+                </form>
             </div>
 
 		</div>

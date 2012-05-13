@@ -2,7 +2,9 @@ package com.mtt.controller;
 
 import com.mtt.bean.CreateTaskBean;
 import com.mtt.domain.entity.Task;
+import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.TaskNotFoundException;
+import com.mtt.security.AuthenticatedUserSession;
 import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
 import com.mtt.service.request.CreateTaskRequest;
@@ -53,18 +55,20 @@ public final class DashBoardController {
     @Autowired
     public TaskService taskService;
 
+    @Autowired
+    private AuthenticatedUserSession authenticatedUserSession;
+
     /**
      * @return the page
      */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showPage() {
 
-        //TODO: Add Flash Scope...or protect by shiro(prefer)
         Map<String, Object> map = new HashMap<String, Object>();
 
-        Long userId = 1L;
+        User user = userService.find(authenticatedUserSession.getUsername());
 
-        return populateCommonAttributes(map, userId);
+        return populateCommonAttributes(map, user);
     }
 
     /**
@@ -76,11 +80,11 @@ public final class DashBoardController {
     public ModelAndView createTask(@ModelAttribute(CREATE_BEAN_NAME) CreateTaskBean createTaskBean) {
 
         Map<String, Object> map = new HashMap<String, Object>();
-        Long userId = 1L;
+        User user = userService.find(authenticatedUserSession.getUsername());
 
-        taskService.create(convert(userId, createTaskBean));
+        taskService.create(convert(user.getId(), createTaskBean));
 
-        return populateCommonAttributes(map, userId);
+        return populateCommonAttributes(map, user);
     }
 
     /**
@@ -92,7 +96,7 @@ public final class DashBoardController {
     public ModelAndView deleteTask(String taskId) {
 
         Map<String, Object> map = new HashMap<String, Object>();
-        Long userId = 1L;
+        User user = userService.find(authenticatedUserSession.getUsername());
 
         try {
             taskService.delete(new Long(taskId));
@@ -102,7 +106,7 @@ public final class DashBoardController {
             LOGGER.error("Attempted to delete a task that does not exist id:" + taskId);
         }
 
-        return populateCommonAttributes(map, userId);
+        return populateCommonAttributes(map, user);
     }
 
     /**
@@ -116,19 +120,23 @@ public final class DashBoardController {
         Map<String, Object> map = new HashMap<String, Object>();
         Long userId = 1L;
 
+        User user = userService.find(authenticatedUserSession.getUsername());
+
         try {
             taskService.update(updateTaskBean);
         } catch (TaskNotFoundException e) {
             LOGGER.error("Attempted to update a task that does not exist id:" + updateTaskBean.getId());
         }
 
-        return populateCommonAttributes(map, userId);
+        return populateCommonAttributes(map, user);
     }
 
     @RequestMapping(method = RequestMethod.POST/*, params = "update-check-of-task"*/)
     public ModelAndView updateCheckOfTask(boolean checked, String taskId) {
         Map<String, Object> map = new HashMap<String, Object>();
         Long userId = 1L;
+
+        User user = userService.find(authenticatedUserSession.getUsername());
 
         try {
             Long tId = new Long(taskId);
@@ -150,12 +158,12 @@ public final class DashBoardController {
             LOGGER.error("Attempted to delete a task that does not exist id:" + taskId);
         }
 
-        return populateCommonAttributes(map, userId);
+        return populateCommonAttributes(map, user);
     }
 
-    private ModelAndView populateCommonAttributes(Map<String, Object> map, Long userId) {
-        map.put(USER_MODEL_NAME, userService.find(userId));
-        map.put(TASKS_MODEL_NAME, taskService.findByUser(userId));
+    private ModelAndView populateCommonAttributes(Map<String, Object> map, User user) {
+        map.put(USER_MODEL_NAME, user);
+        map.put(TASKS_MODEL_NAME, taskService.findByUser(user.getId()));
         map.put(DESC_SIZE_NAME, DESC_SIZE);
         map.put(TITLE_SIZE_NAME, TITLE_SIZE);
 
