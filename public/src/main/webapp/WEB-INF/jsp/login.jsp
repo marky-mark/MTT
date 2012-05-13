@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Task Dashboard</title>
+    <title>MTT Login</title>
     <jawr:style src="/bundles/mtt.css"/>
     <jawr:script src="/bundles/mtt.js"/>
 </head>
