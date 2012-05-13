@@ -12,12 +12,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
        <param-value>classpath:/META-INF/application-context.xml</param-value>
    </context-param>
 
-   <!--<listener>-->
-       <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-   <!--</listener>-->
-
+    <!--<listener>-->
+        <!--<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>-->
+    <!--</listener>-->
     <listener>
-        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
    <servlet>
@@ -94,5 +93,42 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <url-pattern>*.gif</url-pattern>
         <url-pattern>*.ico</url-pattern>
     </servlet-mapping>
+
+    <!--SHIRO-->
+
+    <!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
+    <!--<filter>-->
+        <!--<filter-name>shiroFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>targetFilterLifecycle</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+    <!--&lt;!&ndash; Make sure any request you want accessible to Shiro is filtered. /* catches all &ndash;&gt;-->
+    <!--&lt;!&ndash; requests.  Usually this filter mapping is defined first (before all others) to &ndash;&gt;-->
+    <!--&lt;!&ndash; ensure that Shiro works in subsequent filters in the filter chain:             &ndash;&gt;-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>shiroFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+        <!--Errors-->
+
+    <error-page>
+        <error-code >404</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code >500</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code >403</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
 
 </web-app>

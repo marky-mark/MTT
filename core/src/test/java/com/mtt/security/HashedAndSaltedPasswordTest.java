@@ -11,7 +11,7 @@ public class HashedAndSaltedPasswordTest {
     public void testHashedValue() {
         HashedAndSaltedPassword password = new HashedAndSaltedPassword("password");
         assertThat(password.getSalt(), equalTo("abyssus"));
-        assertThat(password.getPassword(), equalTo("vxfOxS7a2svQcAdv8kNE6lix0JAmPjyHbKPCZk2Ua08="));
+        assertThat(password.getPassword(), equalTo("bTKa66S/DkJEWzy+TXNeH5BppPGgDRnwQtLR9x2cyao="));
     }
 
     @Test

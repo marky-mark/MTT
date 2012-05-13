@@ -5,6 +5,7 @@ import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.repository.UserRepository;
 import com.mtt.service.impl.UserServiceImpl;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -60,5 +61,33 @@ public class UserServiceTest {
         User returnedUser = userService.find("mark");
 
         assertThat(returnedUser, equalTo(userToReturn));
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void testVerifyPasswordNoUserFound() {
+        when(userRepository.findByUserName("mark")).thenReturn(null);
+
+        userService.authenticate("mark", "password");
+    }
+
+    @Test(expected = IncorrectCredentialsException.class)
+    public void testVerifyPasswordIncorrectCredentials() {
+        User userToReturn = TestUtils.createUser(1L);
+        userToReturn.setPassword("nonHashedPasswordWillNeverMatch");
+        when(userRepository.findByUserName("mark")).thenReturn(userToReturn);
+
+        userService.authenticate("mark", "password");
+    }
+
+    @Test
+    public void testCorrectCredentials() {
+        User userToReturn = TestUtils.createUser(1L);
+        userToReturn.setUsername("mark");
+        userToReturn.setPassword("password");
+        when(userRepository.findByUserName("mark")).thenReturn(userToReturn);
+
+        User returned = userService.authenticate("mark", "password");
+
+        assertThat(returned, equalTo(userToReturn));
     }
 }

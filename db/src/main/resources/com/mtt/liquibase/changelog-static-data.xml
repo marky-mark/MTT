@@ -11,7 +11,7 @@
             <column name="id" value="1"/>
             <column name="usrname" value="test"/>
             <!--Set the password to encrypted value of 'abc123'-->
-            <column name="passwrd" value="sE7irHZeY/hp3dN0Y6WSQl1inF6un0+u5uafLXc/hGs="/>
+            <column name="passwrd" value="FzLJc09IApq0Vm7lqfFjQ8UKL4n6xB8I9VtKEPrQGSY="/>
             <!--<column name="passwrd" value="NhRtGBON6ZZOmbzBr0+pIfaau6EHIc1MBPlBx+y93a0="/>-->
             <!--<column name="salt" value="EqWuvs1+qBl1lDyxCOXGHA=="/>-->
         </insert>

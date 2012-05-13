@@ -17,24 +17,19 @@
             ignore-resource-not-found="true"
             system-properties-mode="OVERRIDE"/>
 
-    <context:component-scan base-package="com.mtt.controller"/>
-
     <mvc:annotation-driven/>
 
-    <context:component-scan base-package="com.mtt.service"/>
+    <context:component-scan base-package="com.mtt.controller"/>
 
-    <jpa:repositories base-package="com.mtt.repository"/>
+    <!-- Required for security annotations to work in this servlet -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"/>
 
-    <import resource="datasource-context.xml"/>
 
-    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
-        <property name="prefix">
-            <value>/WEB-INF/jsp/</value>
-        </property>
-        <property name="suffix">
-            <value>.jsp</value>
-        </property>
-    </bean>
+     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+      <property name="prefix" value="/WEB-INF/jsp/"/>
+      <property name="suffix" value=".jsp"/>
+  </bean>
 
 </beans>

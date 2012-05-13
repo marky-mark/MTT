@@ -17,4 +17,12 @@ public interface UserService {
      * @return the user
      */
     User find(String username);
+
+    /**
+     * Used to authenticate at login
+     * @param username  the username
+     * @param plainTextpassword Plain text password
+     * @return the User
+     */
+    User authenticate(String username, String plainTextpassword);
 }

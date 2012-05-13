@@ -24,7 +24,8 @@ public final class HashedAndSaltedPassword implements SaltedPassword {
      * @param plainTextPassword the password to salt and hash
      */
     public HashedAndSaltedPassword(String plainTextPassword) {
-        this.hashedPassword = new Sha256Hash(plainTextPassword, salt, 1024).toBase64();
+        ByteSource saltSource = new SimpleByteSource(Base64.decode(salt));
+        this.hashedPassword = new Sha256Hash(plainTextPassword, saltSource, 1024).toBase64();
     }
 
     public String getSalt() {
@@ -45,7 +46,6 @@ public final class HashedAndSaltedPassword implements SaltedPassword {
 
     public static Boolean comparePassword(String plainTextPassword, String encryptedPassword) {
         ByteSource saltSource = new SimpleByteSource(Base64.decode(salt));
-
         return new Sha256Hash(plainTextPassword, saltSource, 1024).toBase64().equals(encryptedPassword);
     }
 
