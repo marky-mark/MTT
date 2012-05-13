@@ -19,6 +19,7 @@
 
             <h2>Create a new task</h2>
 
+            <%--Create a new Task--%>
             <div id="create-task">
                 <form action="/dashboard" method="POST">
                     <p>Title <input type="text" id="title" name="title" size="${titleSize}"/></p>
@@ -30,10 +31,12 @@
             <h2>Your current tasks</h2>
 
             <ul>
+                <%--List the current Tasks--%>
                 <c:forEach var="task" items="${tasks}">
                     <div class="border-control">
                         <li>
                             <ul>
+                                <%--Display a Task--%>
                                 <div id="text-task-${task.id}">
                                     <form action="/dashboard" method="POST" >
                                         <input type="hidden" name="taskId" value="${task.id}"/>
@@ -49,6 +52,7 @@
                                     </div>
                                 </div>
 
+                                <%--Edit a Task--%>
                                 <div id="text-task-${task.id}-edit" hidden="true">
                                     <form class="update" action="/dashboard" method="POST">
                                         <input name="checked" type="checkbox" value="true" <c:if test="${task.checked == true}">checked="checked"</c:if> />
