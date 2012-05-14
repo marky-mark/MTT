@@ -8,8 +8,8 @@
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${mtt.jdbc.driver:com.mysql.jdbc.Driver}"/>
         <property name="jdbcUrl" value="${mtt.jdbc.url:jdbc:mysql://localhost:3306/mtt}"/>
-        <property name="user" value="${mtt.jdbc.username:root}"/>
-        <property name="password" value="${mtt.jdbc.password:root123}"/>
+        <property name="user" value="${mtt.jdbc.username:mtt}"/>
+        <property name="password" value="${mtt.jdbc.password:mtt}"/>
         <property name="minPoolSize" value="${mtt.jdbc.pool.min:5}"/>
         <property name="maxPoolSize" value="${mtt.jdbc.pool.max:100}"/>
         <property name="maxIdleTime" value="21600"/>
