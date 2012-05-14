@@ -24,8 +24,14 @@ public final class MTTRealm extends AuthenticatingRealm {
         Assert.isInstanceOf(UsernamePasswordToken.class, authenticationToken);
         UsernamePasswordToken upToken = verifyUsernamePasswordToken((UsernamePasswordToken) authenticationToken);
 
+        User user;
+
         //Make sure the credentials are correct ....exception thrown if issue
-        User user = userService.authenticate(upToken.getUsername(), new String(upToken.getPassword()));
+        try {
+            user = userService.authenticate(upToken.getUsername(), new String(upToken.getPassword()));
+        } catch (RuntimeException e) {
+            throw new AuthenticationException(e);
+        }
 
         UserAuthenticationInfo authenticationInfo = new UserAuthenticationInfo();
         authenticationInfo.setUsername(user.getUsername());

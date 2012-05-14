@@ -27,7 +27,7 @@
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login" />
         <property name="successUrl" value="/dashboard" />
-        <property name="unauthorizedUrl" value="/dashboard" />
+        <property name="unauthorizedUrl" value="/login" />
         <property name="filterChainDefinitions">
             <value>
                 /dashboard = authc

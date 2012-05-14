@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="jawr" uri="http://jawr.net/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -22,8 +23,10 @@
             <div id="login">
                 <form class="update" action="/login" method="POST">
                     <p>Username <input type="text" id="username" name="username" name="title" size="${titleSize}"/></p>
+                    <c:if test="${not empty userNameError}"><label color="#9A1212">${userNameError}</label></c:if>
                     <p>Password <input type="password" id="password" name="password" name="title" size="${titleSize}"/></p>
-                    <input type="submit" value="login" />
+                    <c:if test="${not empty passwordError}"><label color="#9A1212">${passwordError}</label></c:if>
+                    <p><input type="submit" value="login" id="login-button" name="login" /></p>
                 </form>
             </div>
 
