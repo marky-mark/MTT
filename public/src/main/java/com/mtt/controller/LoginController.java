@@ -56,8 +56,8 @@ public final class LoginController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String loginFailure(Model model,
-                                     @ModelAttribute("loginForm") LoginForm loginForm,
-                                     BindingResult result) {
+                                @ModelAttribute("loginForm") LoginForm loginForm,
+                                BindingResult result) {
 
         //Find out why this failed
         //TODO: preferable it would be better to have a Failure intercepter which can add the error to the request
@@ -71,7 +71,6 @@ public final class LoginController {
         } catch (UserNotFoundException e) {
             result.rejectValue("username", "no such user - please register");
             model.addAttribute("userNameError", "no such user - please register");
-            //TODO: Redirect to register page instead
         } catch (IncorrectCredentialsException e) {
             result.rejectValue("password", "wrong password please try again");
             model.addAttribute("passwordError", "wrong password please try again");

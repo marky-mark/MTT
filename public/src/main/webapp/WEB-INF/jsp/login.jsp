@@ -26,6 +26,7 @@
                     <c:if test="${not empty userNameError}"><label color="#9A1212">${userNameError}</label></c:if>
                     <p>Password <input type="password" id="password" name="password" name="title" size="${titleSize}"/></p>
                     <c:if test="${not empty passwordError}"><label color="#9A1212">${passwordError}</label></c:if>
+                    <input name="rememberMe" type="checkbox" value="true" /><label class="remember-me">Remember me</label>
                     <p><input type="submit" value="login" id="login-button" name="login" /></p>
                 </form>
             </div>
