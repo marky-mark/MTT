@@ -12,6 +12,7 @@
         <module>db</module>
         <module>core</module>
         <module>public</module>
+        <module>test</module>
     </modules>
 
     <properties>
@@ -19,6 +20,17 @@
         <hibernate.version>3.5.6-Final</hibernate.version>
         <junit.version>4.8.2</junit.version>
         <shiro.version>1.2.0</shiro.version>
+
+        <mtt.jdbc.driver>com.mysql.jdbc.Driver</mtt.jdbc.driver>
+        <mtt.jdbc.url>jdbc:mysql://localhost/mtt</mtt.jdbc.url>
+        <mtt.jdbc.username>mtt</mtt.jdbc.username>
+        <mtt.jdbc.password>mtt</mtt.jdbc.password>
+
+        <integration.jdbc.driver>org.h2.Driver</integration.jdbc.driver>
+        <integration.jdbc.driver>org.h2.Driver</integration.jdbc.driver>
+        <integration.jdbc.url>jdbc:h2:mem:integration-test;MODE=MySQL</integration.jdbc.url>
+        <integration.jdbc.username>mtt</integration.jdbc.username>
+        <integration.jdbc.password>mtt</integration.jdbc.password>
     </properties>
 
     <build>
@@ -143,6 +155,11 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>core</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -231,8 +248,8 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.3.157</version>
-                <scope>test</scope>
+                <version>1.3.148</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>

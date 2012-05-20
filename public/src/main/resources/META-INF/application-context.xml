@@ -19,10 +19,13 @@
     <context:component-scan base-package="com.mtt.service"/>
     <context:component-scan base-package="com.mtt.security" scoped-proxy="targetClass" />
 
+                            <!--DataBase-->
+
     <jpa:repositories base-package="com.mtt.repository"/>
 
     <import resource="datasource-context.xml"/>
 
+                            <!--SHIRO-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login" />
@@ -41,15 +44,12 @@
     </bean>
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
-    <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
-    <!-- security datasource: -->
     <bean id="mttRealm" class="com.mtt.security.MTTRealm">
         <property name="credentialsMatcher" ref="allowCred"/>
         <property name="cachingEnabled" value="false"/>
     </bean>
 
     <bean id="allowCred" class="org.apache.shiro.authc.credential.AllowAllCredentialsMatcher" />
-
 
     <bean id="authenticatedUserSession" class="com.mtt.security.impl.ShiroSubjectUserSession" scope="session">
         <aop:scoped-proxy/>

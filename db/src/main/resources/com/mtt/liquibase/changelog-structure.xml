@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-    <changeSet id="1" author="mark" dbms="mysql">
+    <changeSet id="1" author="mark">
 
       <createTable tableName="usr">
          <column name="id" type="int">
@@ -40,20 +40,12 @@
 
     </changeSet>
 
-    <changeSet id="add-checkbox-function" author="mark" dbms="mysql">
+    <changeSet id="add-checkbox-function" author="mark">
         <addColumn tableName="task">
             <column name="checked" type="TINYINT(1)" defaultValue="0">
                  <constraints nullable="false"/>
             </column>
         </addColumn>
     </changeSet>
-
-    <!--<changeSet id="add-salt-for-password" author="mkelly" dbms="mysql">-->
-        <!--<addColumn tableName="usr">-->
-            <!--<column name="salt" type="varchar(100)">-->
-                <!--<constraints nullable="false"/>-->
-            <!--</column>-->
-        <!--</addColumn>-->
-    <!--</changeSet>-->
 
 </databaseChangeLog>
