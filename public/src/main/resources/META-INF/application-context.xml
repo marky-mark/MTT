@@ -49,9 +49,21 @@
         </property>
     </bean>
 
+    <bean id="cookieTemplate" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg name="name" value="mtt_user"/>
+        <property name="maxAge" value="31536000"/>
+        <property name="httpOnly" value="true"/>
+    </bean>
+
+    <bean id="rememberMeCookieManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="cookieTemplate"/>
+    </bean>
+
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" depends-on="userRepository">
         <property name="realm" ref="mttRealm"/>
+        <property name="rememberMeManager" ref="rememberMeCookieManager"/>
     </bean>
+
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <bean id="mttRealm" class="com.mtt.security.MTTRealm">
