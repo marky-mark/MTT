@@ -2,6 +2,7 @@ package com.mtt.controller;
 
 import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.UserNotFoundException;
+import com.mtt.security.AuthenticatedUserSession;
 import com.mtt.service.UserService;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.mtt.controller.LoginController.PAGE_PATH;
 
@@ -35,18 +32,23 @@ public final class LoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthenticatedUserSession authenticatedUserSession;
+
     /**
      * get the Login page
      * @return view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showPage() {
+    public String showPage(Model model) {
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        if (authenticatedUserSession.userIsAuthenticated()) {
+            return "redirect:" + DashBoardController.PAGE_PATH;
+        }
 
-        map.put(FIELD_SIZE_NAME, FIELD_SIZE);
+        model.addAttribute(FIELD_SIZE_NAME, FIELD_SIZE);
 
-        return new ModelAndView(VIEW_NAME, map);
+        return VIEW_NAME;
     }
 
     /**

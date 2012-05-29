@@ -18,6 +18,8 @@
         <div id="content">
             <h1>Welcome '${user.username}'</h1>
 
+            <a id="logoutLink" href="${logoutLink}">Logout</a>
+
             <h2>Create a new task</h2>
 
             <%--Create a new Task--%>

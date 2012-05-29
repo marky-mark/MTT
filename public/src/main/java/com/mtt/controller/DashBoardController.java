@@ -48,6 +48,7 @@ public final class DashBoardController {
     public static final int DESC_SIZE = 500;
     public static final String TITLE_SIZE_NAME = "descSize";
     public static final int TITLE_SIZE = 100;
+    public static final String LOGOUT_LINK = "logoutLink";
 
     @Autowired
     public UserService userService;
@@ -166,6 +167,7 @@ public final class DashBoardController {
         map.put(TASKS_MODEL_NAME, taskService.findByUser(user.getId()));
         map.put(DESC_SIZE_NAME, DESC_SIZE);
         map.put(TITLE_SIZE_NAME, TITLE_SIZE);
+        map.put(LOGOUT_LINK, LogoutController.PAGE_PATH);
 
         return new ModelAndView(VIEW_NAME, map);
     }

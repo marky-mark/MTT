@@ -2,6 +2,7 @@ package com.mtt.controller;
 
 import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.UserNotFoundException;
+import com.mtt.security.AuthenticatedUserSession;
 import com.mtt.service.UserService;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.junit.Before;
@@ -9,20 +10,19 @@ import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class LoginControllerTest {
 
     private LoginController controller;
 
     private UserService userService;
+
+    private AuthenticatedUserSession authenticatedUserSession;
 
     private Model model;
     private BindingResult result;
@@ -34,14 +34,23 @@ public class LoginControllerTest {
         result = mock(BindingResult.class);
         controller = new LoginController();
         userService = mock(UserService.class);
+        authenticatedUserSession = mock(AuthenticatedUserSession.class);
         ReflectionTestUtils.setField(controller, "userService", userService);
+        ReflectionTestUtils.setField(controller, "authenticatedUserSession", authenticatedUserSession);
     }
 
     @Test
     public void testGetPage() {
-        ModelAndView modelAndView = controller.showPage();
+        when(authenticatedUserSession.userIsAuthenticated()).thenReturn(false);
+        String viewName = controller.showPage(model);
+        assertThat(viewName, equalTo(LoginController.VIEW_NAME));
+    }
 
-        assertThat(modelAndView.getViewName(), equalTo(LoginController.VIEW_NAME));
+    @Test
+    public void testGetPageRedirectToDashboardIfLoggedIn() {
+        when(authenticatedUserSession.userIsAuthenticated()).thenReturn(true);
+        String viewName = controller.showPage(model);
+        assertThat(viewName, equalTo("redirect:" + DashBoardController.PAGE_PATH));
     }
 
     @Test

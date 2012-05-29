@@ -14,17 +14,30 @@ public class ShiroSubjectUserSession implements AuthenticatedUserSession {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShiroSubjectUserSession.class);
 
-
     private boolean initialized = false;
 
     @Autowired
     private UserService userService;
 
-
     @Override
     public synchronized String getUsername() {
         init();
         return (String) getSubject().getPrincipal();
+    }
+
+    @Override
+    public void logoutUser() {
+
+        Subject currentUser = getSubject();
+
+        if (currentUser != null) {
+            currentUser.logout();
+        }
+    }
+
+    @Override
+    public boolean userIsAuthenticated() {
+        return getSubject().isAuthenticated();
     }
 
     private void init() {
@@ -33,7 +46,7 @@ public class ShiroSubjectUserSession implements AuthenticatedUserSession {
 
         if (!initialized) {
 
-            User user = getUser();
+            getUser();
 
             initialized = true;
         }

@@ -7,6 +7,10 @@ import java.io.Serializable;
  */
 public interface AuthenticatedUserSession extends Serializable {
 
-
     String getUsername();
+
+    void logoutUser();
+
+    boolean userIsAuthenticated();
+
 }
