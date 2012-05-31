@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+
+    <!--
+            Suppress the design for extension check for spring configuration classes, because the configuration
+            methods cannot be final.
+        -->
+  <!--  <suppress checks="DesignForExtension" files="com[\\/]gumtree[\\/]config[\\/]"/> -->
+
+</suppressions>
