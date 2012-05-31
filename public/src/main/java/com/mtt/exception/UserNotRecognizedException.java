@@ -1,8 +1,6 @@
 package com.mtt.exception;
 
-public class UserNotRecognizedException extends RuntimeException {
+import org.apache.shiro.authc.AccountException;
 
-    public UserNotRecognizedException(String username) {
-        super("User " +  username + " not recognised");
-    }
+public class UserNotRecognizedException extends AccountException {
 }

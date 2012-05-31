@@ -1,10 +1,8 @@
 package com.mtt.controller;
 
-import com.mtt.domain.entity.User;
-import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.security.AuthenticatedUserSession;
+import com.mtt.security.login.LoginFailure;
 import com.mtt.service.UserService;
-import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,22 +62,14 @@ public final class LoginController {
     @RequestMapping(method = RequestMethod.POST)
     public String loginFailure(Model model,
                                 @ModelAttribute("loginForm") LoginForm loginForm,
-                                BindingResult result) {
-
-        //Find out why this failed
-        //TODO: preferable it would be better to have a Failure intercepter which can add the error to the request
+                                BindingResult result,
+                                LoginFailure failureReason) {
 
         model.addAttribute(FIELD_SIZE_NAME, FIELD_SIZE);
 
-        try {
-            User user = userService.find(loginForm.getUsername());
-
-            user = userService.authenticate(loginForm.getUsername(), loginForm.getPassword());
-        } catch (UserNotFoundException e) {
-            result.rejectValue("username", "no such user - please register");
+        if (failureReason.equals(LoginFailure.USER_NOT_FOUND) ) {
             model.addAttribute("userNameError", "no such user - please register");
-        } catch (IncorrectCredentialsException e) {
-            result.rejectValue("password", "wrong password please try again");
+        } else if (failureReason.equals(LoginFailure.INCORRECT_CREDENTIALS)) {
             model.addAttribute("passwordError", "wrong password please try again");
         }
 

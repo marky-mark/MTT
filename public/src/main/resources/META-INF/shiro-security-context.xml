@@ -14,10 +14,13 @@
        <property name="loginUrl" value="/login"/>
     </bean>
 
+    <bean id="formAuthenticationFilter" class="com.mtt.security.shiro.MTTFormAuthenticationFilter"/>
+
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="filters">
             <util:map>
                 <entry key="user" value-ref="softLoginFilter"/>
+                <entry key="authc" value-ref="formAuthenticationFilter"/>
             </util:map>
         </property>
         <property name="securityManager" ref="securityManager"/>

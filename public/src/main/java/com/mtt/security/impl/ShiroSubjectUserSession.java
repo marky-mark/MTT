@@ -56,7 +56,7 @@ public class ShiroSubjectUserSession implements AuthenticatedUserSession {
         try {
             return userService.find((String) getSubject().getPrincipal());
         } catch (RuntimeException ex) {
-            throw new UserNotRecognizedException(String.valueOf(getSubject().getPrincipal()) );
+            throw new UserNotRecognizedException();
         }
     }
 
@@ -77,6 +77,6 @@ public class ShiroSubjectUserSession implements AuthenticatedUserSession {
                 + ", isAuthenticated: " + getSubject().isAuthenticated()
                 + ", sessionIsCreated: " + (getSubject().getSession(false) != null));
 
-        throw new UserNotRecognizedException(String.valueOf(getSubject().getPrincipal()) );
+        throw new UserNotRecognizedException();
     }
 }

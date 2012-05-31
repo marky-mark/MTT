@@ -1,13 +1,17 @@
 package com.mtt.security;
 
 import com.mtt.domain.entity.User;
+import com.mtt.domain.exception.IncorrectPasswordException;
+import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.exception.MissingPasswordException;
 import com.mtt.exception.MissingUsernameAndPasswordException;
 import com.mtt.exception.MissingUsernameException;
+import com.mtt.exception.UserNotRecognizedException;
 import com.mtt.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.realm.AuthenticatingRealm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +32,11 @@ public final class MTTRealm extends AuthenticatingRealm {
 
         //Make sure the credentials are correct ....exception thrown if issue
         try {
-            user = userService.authenticate(upToken.getUsername(), new String(upToken.getPassword()));
+        user = userService.authenticate(upToken.getUsername(), new String(upToken.getPassword()));
+        } catch (UserNotFoundException e) {
+            throw new UserNotRecognizedException();
+        } catch (IncorrectPasswordException e) {
+            throw new IncorrectCredentialsException();
         } catch (RuntimeException e) {
             throw new AuthenticationException(e);
         }

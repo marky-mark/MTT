@@ -2,10 +2,10 @@ package com.mtt.service;
 
 import com.mtt.domain.entity.TestUtils;
 import com.mtt.domain.entity.User;
+import com.mtt.domain.exception.IncorrectPasswordException;
 import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.repository.UserRepository;
 import com.mtt.service.impl.UserServiceImpl;
-import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -70,7 +70,7 @@ public class UserServiceTest {
         userService.authenticate("mark", "password");
     }
 
-    @Test(expected = IncorrectCredentialsException.class)
+    @Test(expected = IncorrectPasswordException.class)
     public void testVerifyPasswordIncorrectCredentials() {
         User userToReturn = TestUtils.createUser(1L);
         userToReturn.setPassword("nonHashedPasswordWillNeverMatch");

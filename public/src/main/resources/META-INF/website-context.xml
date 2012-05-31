@@ -17,8 +17,11 @@
 
     <!--Argument Resolvers-->
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	    <property name="customArgumentResolver">
+	    <property name="customArgumentResolvers">
+            <list>
 	            <bean class="com.mtt.security.shiro.SubjectArgumentResolver"/>
+                <bean class="com.mtt.security.login.LoginFailureArgumentResolver"/>
+            </list>
 	    </property>
 	</bean>
 
