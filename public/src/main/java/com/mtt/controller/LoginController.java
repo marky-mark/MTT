@@ -5,6 +5,7 @@ import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.security.AuthenticatedUserSession;
 import com.mtt.service.UserService;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,13 +37,15 @@ public final class LoginController {
     private AuthenticatedUserSession authenticatedUserSession;
 
     /**
-     * get the Login page
-     * @return view
+     *
+     * @param subject
+     * @param model
+     * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String showPage(Model model) {
+    public String showPage(Subject subject, Model model) {
 
-        if (authenticatedUserSession.userIsAuthenticated()) {
+        if (subject.isAuthenticated()) {
             return "redirect:" + DashBoardController.PAGE_PATH;
         }
 
@@ -53,7 +56,9 @@ public final class LoginController {
 
     /**
      * Handle the Failed Shiro Login
+     * @param model
      * @param loginForm form
+     * @param result
      * @return view
      */
     @RequestMapping(method = RequestMethod.POST)

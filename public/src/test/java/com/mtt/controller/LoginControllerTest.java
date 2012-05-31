@@ -2,9 +2,9 @@ package com.mtt.controller;
 
 import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.UserNotFoundException;
-import com.mtt.security.AuthenticatedUserSession;
 import com.mtt.service.UserService;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.subject.Subject;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -22,7 +22,7 @@ public class LoginControllerTest {
 
     private UserService userService;
 
-    private AuthenticatedUserSession authenticatedUserSession;
+    private Subject subject;
 
     private Model model;
     private BindingResult result;
@@ -34,22 +34,21 @@ public class LoginControllerTest {
         result = mock(BindingResult.class);
         controller = new LoginController();
         userService = mock(UserService.class);
-        authenticatedUserSession = mock(AuthenticatedUserSession.class);
+        subject = mock(Subject.class);
         ReflectionTestUtils.setField(controller, "userService", userService);
-        ReflectionTestUtils.setField(controller, "authenticatedUserSession", authenticatedUserSession);
     }
 
     @Test
     public void testGetPage() {
-        when(authenticatedUserSession.userIsAuthenticated()).thenReturn(false);
-        String viewName = controller.showPage(model);
+        when(subject.isAuthenticated()).thenReturn(false);
+        String viewName = controller.showPage(subject, model);
         assertThat(viewName, equalTo(LoginController.VIEW_NAME));
     }
 
     @Test
     public void testGetPageRedirectToDashboardIfLoggedIn() {
-        when(authenticatedUserSession.userIsAuthenticated()).thenReturn(true);
-        String viewName = controller.showPage(model);
+        when(subject.isAuthenticated()).thenReturn(true);
+        String viewName = controller.showPage(subject, model);
         assertThat(viewName, equalTo("redirect:" + DashBoardController.PAGE_PATH));
     }
 

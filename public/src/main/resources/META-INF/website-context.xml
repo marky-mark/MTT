@@ -15,7 +15,15 @@
             ignore-resource-not-found="true"
             system-properties-mode="OVERRIDE"/>
 
+    <!--Argument Resolvers-->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <property name="customArgumentResolver">
+	            <bean class="com.mtt.security.shiro.SubjectArgumentResolver"/>
+	    </property>
+	</bean>
+
     <mvc:annotation-driven/>
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>-->
 
     <context:component-scan base-package="com.mtt.controller"/>
 
@@ -23,7 +31,7 @@
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"/>
 
-
+    <!--JSP-->
      <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
           <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
           <property name="prefix" value="/WEB-INF/jsp/"/>
