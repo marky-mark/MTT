@@ -3,6 +3,7 @@
 <%@ taglib prefix="jawr" uri="http://jawr.net/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.mtt.com/errors" prefix="e" %>
 <html>
 <head>
     <title>MTT Login</title>
@@ -34,12 +35,12 @@
                     <div class="text-field">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" name="title" size="${titleSize}"/>
-                        <div><span class="error"><c:if test="${not empty userNameError}">${userNameError}</c:if></span></div>
+                        <div><span class="error"><c:if test="${e:hasError(errors, 'username')}">${e:getError(errors,'username')}</c:if></span></div>
                     </div>
                     <div class="text-field">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" name="title" size="${titleSize}"/>
-                        <div><span class="error"><c:if test="${not empty passwordError}">${passwordError}</c:if></span></div>
+                        <div><span class="error"><c:if test="${e:hasError(errors, 'password')}">${e:getError(errors,'password')}</c:if></span></div>
                     </div>
                 </fieldset>
                 <div id="remember-me">

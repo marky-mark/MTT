@@ -32,7 +32,7 @@ public final class MTTRealm extends AuthenticatingRealm {
 
         //Make sure the credentials are correct ....exception thrown if issue
         try {
-        user = userService.authenticate(upToken.getUsername(), new String(upToken.getPassword()));
+            user = userService.authenticate(upToken.getUsername(), new String(upToken.getPassword()));
         } catch (UserNotFoundException e) {
             throw new UserNotRecognizedException();
         } catch (IncorrectPasswordException e) {

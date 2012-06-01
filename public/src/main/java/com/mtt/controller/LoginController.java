@@ -19,7 +19,7 @@ import static com.mtt.controller.LoginController.PAGE_PATH;
  */
 @Controller
 @RequestMapping(value = PAGE_PATH)
-public final class LoginController {
+public final class LoginController extends BaseController {
 
     public static final String PAGE_PATH = "/login";
 
@@ -35,10 +35,9 @@ public final class LoginController {
     private AuthenticatedUserSession authenticatedUserSession;
 
     /**
-     *
-     * @param subject
-     * @param model
-     * @return
+     * @param subject Shiro subject
+     * @param model   mvc model
+     * @return view
      */
     @RequestMapping(method = RequestMethod.GET)
     public String showPage(Subject subject, Model model) {
@@ -53,25 +52,23 @@ public final class LoginController {
     }
 
     /**
-     * Handle the Failed Shiro Login
-     * @param model
-     * @param loginForm form
-     * @param result
-     * @return view
+     * handle shiro login failure
+     *
+     * @param model         mvc model
+     * @param loginForm     form passed
+     * @param result        binding result
+     * @param failureReason reason for failure
+     * @return login form view
      */
     @RequestMapping(method = RequestMethod.POST)
     public String loginFailure(Model model,
-                                @ModelAttribute("loginForm") LoginForm loginForm,
-                                BindingResult result,
-                                LoginFailure failureReason) {
+                               @ModelAttribute("loginForm") LoginForm loginForm,
+                               BindingResult result,
+                               LoginFailure failureReason) {
 
         model.addAttribute(FIELD_SIZE_NAME, FIELD_SIZE);
 
-        if (failureReason.equals(LoginFailure.USER_NOT_FOUND) ) {
-            model.addAttribute("userNameError", "no such user - please register");
-        } else if (failureReason.equals(LoginFailure.INCORRECT_CREDENTIALS)) {
-            model.addAttribute("passwordError", "wrong password please try again");
-        }
+        addErrors(model, failureReason);
 
         return VIEW_NAME;
     }

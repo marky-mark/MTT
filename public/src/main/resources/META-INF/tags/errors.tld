@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>Errors</short-name>
+    <uri>http://www.mtt.com/errors</uri>
+
+    <function>
+        <name>hasError</name>
+        <function-class>com.mtt.functions.ErrorFunctions</function-class>
+        <function-signature>java.lang.Boolean hasError(com.mtt.error.ErrorReporter,java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>getError</name>
+        <function-class>com.mtt.functions.ErrorFunctions</function-class>
+        <function-signature>java.lang.String getError(com.mtt.error.ErrorReporter,java.lang.String)</function-signature>
+    </function>
+</taglib>
