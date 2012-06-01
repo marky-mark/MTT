@@ -1,6 +1,7 @@
 package com.mtt.controller;
 
 import com.mtt.bean.CreateTaskBean;
+import com.mtt.cookies.CookieService;
 import com.mtt.domain.entity.Task;
 import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.TaskNotFoundException;
@@ -12,6 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,15 +34,22 @@ public class DashBoardControllerTest {
 
     private AuthenticatedUserSession authenticatedUserSession;
 
+    private HttpServletRequest httpServletRequest;
+
+    private CookieService cookieService;
+
     @Before
     public void init() {
         controller = new DashBoardController();
         userService = mock(UserService.class);
         taskService = mock(TaskService.class);
+        cookieService = mock(CookieService.class);
         authenticatedUserSession = mock(AuthenticatedUserSession.class);
+        httpServletRequest = mock(HttpServletRequest.class);
         ReflectionTestUtils.setField(controller, "userService", userService);
         ReflectionTestUtils.setField(controller, "taskService", taskService);
         ReflectionTestUtils.setField(controller, "authenticatedUserSession", authenticatedUserSession);
+        ReflectionTestUtils.setField(controller, "cookieService", cookieService);
     }
 
     @Test
@@ -48,7 +58,7 @@ public class DashBoardControllerTest {
         when(authenticatedUserSession.getUsername()).thenReturn("mark");
         User user = new User();
         when(userService.find("mark")).thenReturn(user);
-        ModelAndView modelAndView = controller.showPage();
+        ModelAndView modelAndView = controller.showPage(httpServletRequest);
 
         assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));
         assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));

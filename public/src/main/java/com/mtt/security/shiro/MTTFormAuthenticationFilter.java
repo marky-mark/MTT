@@ -1,5 +1,6 @@
 package com.mtt.security.shiro;
 
+import com.mtt.cookies.CookieService;
 import com.mtt.security.login.LoginFailure;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -8,10 +9,17 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
 public class MTTFormAuthenticationFilter extends FormAuthenticationFilter {
 
     public static final String LOGIN_FAILURE = "login.failure";
+
+    private CookieService cookieService;
+
+    public MTTFormAuthenticationFilter(CookieService cookieService) {
+        this.cookieService = cookieService;
+    }
 
     @Override
     public String getFailureKeyAttribute() {
@@ -33,6 +41,7 @@ public class MTTFormAuthenticationFilter extends FormAuthenticationFilter {
             ServletResponse response) throws Exception {
 
         //Drop a custom Cookie here for the laugh
+        cookieService.writeNewCookie((HttpServletResponse) response, "test", "testValue", 600);
 
         return super.onLoginSuccess(token, subject, request, response);
     }

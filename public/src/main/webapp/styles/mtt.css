@@ -117,9 +117,10 @@ height:35px;
 text-align: right;
 background:  url('/images/footer.gif') repeat-x ;
 }
-  #footer h1{
+
+#footer h1{
   padding:5px 5px 0px 0px;
-  }
+}
 
 /**********vertical menu***************/
 ul {
@@ -216,6 +217,7 @@ fieldset {
 
 .submit-button {
     margin-left: 5px;
+    padding: 5px;
 }
 
 #registration {

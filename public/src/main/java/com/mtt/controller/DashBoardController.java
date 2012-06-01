@@ -1,6 +1,7 @@
 package com.mtt.controller;
 
 import com.mtt.bean.CreateTaskBean;
+import com.mtt.cookies.CookieService;
 import com.mtt.domain.entity.Task;
 import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.TaskNotFoundException;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,15 +62,26 @@ public final class DashBoardController {
     @Autowired
     private AuthenticatedUserSession authenticatedUserSession;
 
+    @Autowired
+    private CookieService cookieService;
+
     /**
-     * @return the page
+     * get the dashboard page
+     * @param request http
+     * @return the dashboard view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showPage() {
+    public ModelAndView showPage(HttpServletRequest request) {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
         User user = userService.find(authenticatedUserSession.getUsername());
+
+        Cookie testCookie = cookieService.getCookie(request, "test");
+
+        if (testCookie != null) {
+            map.put("testCookieValue", testCookie.getValue());
+        }
 
         return populateCommonAttributes(map, user);
     }

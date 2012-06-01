@@ -45,7 +45,7 @@
                 </fieldset>
                 <div id="remember-me">
                     <input name="rememberMe" type="checkbox" value="true"/><label class="remember-me">Remember me</label>
-                    <a href="/forgotten password">forgotten password?</a>
+                    <a href="/forgotten_password">forgotten password?</a>
                 </div><div class="submit-button">
                     <input type="submit" value="login" id="login-button" name="login"/>
                 </div>

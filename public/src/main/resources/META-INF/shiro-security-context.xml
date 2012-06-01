@@ -14,7 +14,9 @@
        <property name="loginUrl" value="/login"/>
     </bean>
 
-    <bean id="formAuthenticationFilter" class="com.mtt.security.shiro.MTTFormAuthenticationFilter"/>
+    <bean id="formAuthenticationFilter" class="com.mtt.security.shiro.MTTFormAuthenticationFilter">
+        <constructor-arg name="cookieService" ref="cookieServiceImpl"/>
+    </bean>
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="filters">
