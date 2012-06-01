@@ -192,6 +192,36 @@ textarea {
     margin-left: 10px;
 }
 
+.error {
+    color: #9A1212;
+    margin-left: 70px;
+}
+
+#contet-container{
+    padding: 10px;
+    margin-left: 10px;
+}
+
+fieldset {
+    border: 0;
+}
+
+.text-field {
+    padding: 5px;
+}
+
+#remember-me {
+    margin-left: 5px;
+}
+
+.submit-button {
+    margin-left: 5px;
+}
+
+#registration {
+    margin-left: 5px;
+}
+
 
 
 

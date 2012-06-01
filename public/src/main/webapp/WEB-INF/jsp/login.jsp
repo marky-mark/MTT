@@ -10,29 +10,49 @@
     <jawr:script src="/bundles/mtt.js"/>
 </head>
 <body>
-    <div id="container">
-        <div id="banner">
-            <div id='bannertitle'>MTT Task Test</div>
+<div id="container">
+    <div id="banner">
+        <div id='bannertitle'>MTT Task Test</div>
+    </div>
+
+    <div id="content">
+        <h1>Welcome to the MTT Test</h1>
+
+        <div id="registration">
+            <form action="/register" method="GET">
+                 <span>Not registered? Please register here</span>
+                <input type="submit" value="register" name="register"/>
+            </form>
         </div>
 
-        <div id="content">
-            <h1>Welcome to the MTT Test</h1>
+        <h2>Please Login</h2>
 
-            <h2>Please Login</h2>
+        <div>
+            <form class="update" action="/login" method="POST">
 
-            <div id="login">
-                <form class="update" action="/login" method="POST">
-                    <p>Username <input type="text" id="username" name="username" name="title" size="${titleSize}"/></p>
-                    <c:if test="${not empty userNameError}"><label color="#9A1212">${userNameError}</label></c:if>
-                    <p>Password <input type="password" id="password" name="password" name="title" size="${titleSize}"/></p>
-                    <c:if test="${not empty passwordError}"><label color="#9A1212">${passwordError}</label></c:if>
-                    <input name="rememberMe" type="checkbox" value="true" /><label class="remember-me">Remember me</label>
-                    <p><input type="submit" value="login" id="login-button" name="login" /></p>
-                </form>
-            </div>
+                <fieldset>
+                    <div class="text-field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" name="title" size="${titleSize}"/>
+                        <div><span class="error"><c:if test="${not empty userNameError}">${userNameError}</c:if></span></div>
+                    </div>
+                    <div class="text-field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" name="title" size="${titleSize}"/>
+                        <div><span class="error"><c:if test="${not empty passwordError}">${passwordError}</c:if></span></div>
+                    </div>
+                </fieldset>
+                <div id="remember-me">
+                    <input name="rememberMe" type="checkbox" value="true"/><label class="remember-me">Remember me</label>
+                    <a href="/forgotten password">forgotten password?</a>
+                </div><div class="submit-button">
+                    <input type="submit" value="login" id="login-button" name="login"/>
+                </div>
+            </form>
+        </div>
 
-		</div>
-	</div>
- 	<div id="footer"><h1>Developed by Mark Kelly</h1></div>
+    </div>
+</div>
+<div id="footer"><h1>Developed by Mark Kelly</h1></div>
 </body>
 </html>
