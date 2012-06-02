@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+    <definition name="baseDefinition" template="/WEB-INF/jsp/tiles/layout.jsp">
+        <put-attribute name="header" value="/WEB-INF/jsp/tiles/header.jsp"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/tiles/footer.jsp"/>
+        <put-attribute name="headerTitle" cascade="true" expression="MTT Test"/>
+        <put-list-attribute cascade="true" name="pageHeadScript">
+            <add-attribute value="/bundles/mtt.js"/>
+        </put-list-attribute>
+        <put-list-attribute cascade="true" name="pageCss">
+            <add-attribute value="/bundles/mtt.css"/>
+        </put-list-attribute>
+    </definition>
+
+    <definition name="login" extends="baseDefinition">
+        <put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>
+    </definition>
+
+    <definition name="dashboard" extends="baseDefinition">
+        <put-attribute name="body" value="/WEB-INF/jsp/dashboard.jsp"/>
+    </definition>
+
+</tiles-definitions>

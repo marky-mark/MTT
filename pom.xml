@@ -20,6 +20,7 @@
         <hibernate.version>3.5.6-Final</hibernate.version>
         <junit.version>4.8.2</junit.version>
         <shiro.version>1.2.0</shiro.version>
+        <tiles.version>2.2.2</tiles.version>
 
         <mtt.jdbc.driver>com.mysql.jdbc.Driver</mtt.jdbc.driver>
         <mtt.jdbc.url>jdbc:mysql://localhost/mtt</mtt.jdbc.url>
@@ -66,22 +67,37 @@
 
     <dependencyManagement>
         <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>1.3.RC2</version>
-        </dependency>
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-extras</artifactId>
+                <version>${tiles.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-jsp</artifactId>
+                <version>${tiles.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-el</artifactId>
+                <version>${tiles.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.8.2</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>1.3.RC2</version>
+            </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
