@@ -21,8 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static com.mtt.controller.DashBoardController.PAGE_PATH;
 
@@ -32,7 +35,7 @@ import static com.mtt.controller.DashBoardController.PAGE_PATH;
  */
 @Controller
 @RequestMapping(value = PAGE_PATH)
-public final class DashBoardController {
+public final class DashBoardController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DashBoardController.class);
 
@@ -64,6 +67,9 @@ public final class DashBoardController {
 
     @Autowired
     private CookieService cookieService;
+
+    @Autowired
+    private Validator validator;
 
     /**
      * get the dashboard page
@@ -97,7 +103,13 @@ public final class DashBoardController {
         Map<String, Object> map = new HashMap<String, Object>();
         User user = userService.find(authenticatedUserSession.getUsername());
 
-        taskService.create(convert(user.getId(), createTaskBean));
+        Set<ConstraintViolation<CreateTaskBean>> violations = validator.validate(createTaskBean);
+
+        if (violations.size() > 0) {
+            addErrors(map, violations);
+        } else {
+            taskService.create(convert(user.getId(), createTaskBean));
+        }
 
         return populateCommonAttributes(map, user);
     }
@@ -138,7 +150,14 @@ public final class DashBoardController {
         User user = userService.find(authenticatedUserSession.getUsername());
 
         try {
-            taskService.update(updateTaskBean);
+
+            Set<ConstraintViolation<UpdateTaskRequest>> violations = validator.validate(updateTaskBean);
+
+            if (violations.size() > 0) {
+                    addErrors(map, violations, updateTaskBean.getId());
+            } else {
+                taskService.update(updateTaskBean);
+            }
         } catch (TaskNotFoundException e) {
             LOGGER.error("Attempted to update a task that does not exist id:" + updateTaskBean.getId());
         }

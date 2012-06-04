@@ -15,6 +15,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -38,6 +41,8 @@ public class DashBoardControllerTest {
 
     private CookieService cookieService;
 
+    private Validator validator;
+
     @Before
     public void init() {
         controller = new DashBoardController();
@@ -46,10 +51,12 @@ public class DashBoardControllerTest {
         cookieService = mock(CookieService.class);
         authenticatedUserSession = mock(AuthenticatedUserSession.class);
         httpServletRequest = mock(HttpServletRequest.class);
+        validator = mock(Validator.class);
         ReflectionTestUtils.setField(controller, "userService", userService);
         ReflectionTestUtils.setField(controller, "taskService", taskService);
         ReflectionTestUtils.setField(controller, "authenticatedUserSession", authenticatedUserSession);
         ReflectionTestUtils.setField(controller, "cookieService", cookieService);
+        ReflectionTestUtils.setField(controller, "validator", validator);
     }
 
     @Test
@@ -75,6 +82,8 @@ public class DashBoardControllerTest {
         CreateTaskBean createTaskBean = new CreateTaskBean();
         createTaskBean.setDescription("hello");
         createTaskBean.setTitle("title");
+
+        when(validator.validate(createTaskBean)).thenReturn(new HashSet<ConstraintViolation<CreateTaskBean>>());
         ModelAndView modelAndView = controller.createTask(createTaskBean);
 
         assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));

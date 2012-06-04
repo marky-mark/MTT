@@ -1,7 +1,9 @@
 package com.mtt.error;
 
+import javax.validation.ConstraintViolation;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class MVCErrorReporter implements ErrorReporter {
 
@@ -11,6 +13,18 @@ public class MVCErrorReporter implements ErrorReporter {
 
     public MVCErrorReporter(ReportableErrors errors) {
         errors.report(this);
+    }
+
+    public MVCErrorReporter(Set<? extends ConstraintViolation<?>> violations) {
+        for (ConstraintViolation<?> violation : violations) {
+            fieldError(violation.getPropertyPath().toString(), violation.getMessage());
+        }
+    }
+
+    public MVCErrorReporter(Set<? extends ConstraintViolation<?>> violations, Long id) {
+        for (ConstraintViolation<?> violation : violations) {
+            fieldError(violation.getPropertyPath().toString()+ "_" + id, violation.getMessage());
+        }
     }
 
     @Override

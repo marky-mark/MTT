@@ -14,8 +14,20 @@
     </function>
 
     <function>
+        <name>hasErrorNumber</name>
+        <function-class>com.mtt.functions.ErrorFunctions</function-class>
+        <function-signature>java.lang.Boolean hasError(com.mtt.error.ErrorReporter,java.lang.String, java.lang.Long)</function-signature>
+    </function>
+
+    <function>
         <name>getError</name>
         <function-class>com.mtt.functions.ErrorFunctions</function-class>
         <function-signature>java.lang.String getError(com.mtt.error.ErrorReporter,java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>getErrorNumber</name>
+        <function-class>com.mtt.functions.ErrorFunctions</function-class>
+        <function-signature>java.lang.String getError(com.mtt.error.ErrorReporter,java.lang.String, java.lang.Long)</function-signature>
     </function>
 </taglib>
