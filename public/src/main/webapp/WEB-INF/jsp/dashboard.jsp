@@ -2,6 +2,7 @@
 <%@ taglib prefix="jawr" uri="http://jawr.net/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="taskComponent" %>
 
 <div id="content">
     <h1>Welcome '${user.username}'</h1>
@@ -27,37 +28,14 @@
             <div class="border-control">
                 <li>
                     <ul>
-                        <%--Display a Task--%>
-                        <div id="text-task-${task.id}">
-                            <form action="/dashboard" method="POST" >
-                                <input type="hidden" name="taskId" value="${task.id}"/>
-                                <input name="checked" type="checkbox" value="true" <c:if test="${task.checked == true}">checked="checked" </c:if> onclick="this.form.submit();" />
-                            </form>
-                            <div  onclick="editTask(${task.id})">
-                                ${task.createdDate} <h2 class="title">${task.title}</h2>
-                                <div class="description">${task.description}</div>
-                                <form class="delete" action="/dashboard" method="POST">
-                                    <input type="hidden" name="taskId" value="${task.id}"/>
-                                    <input type="submit" class="delete-button" id="delete-task-button" name="delete-task" value="Delete" />
-                                </form>
-                            </div>
-                        </div>
+                        <taskComponent:displayTaskComponent
+                                id="${task.id}"
+                                title="${task.title}"
+                                description="${task.description}"
+                                isChecked="${task.checked}"
+                                date="${task.createdDate}"
+                                titleSize="${titleSize}"/>
 
-                        <%--Edit a Task--%>
-                        <div id="text-task-${task.id}-edit" hidden="true">
-                            <form class="update" action="/dashboard" method="POST">
-                                <input name="checked" type="checkbox" value="true" <c:if test="${task.checked == true}">checked="checked"</c:if> />
-                                ${task.createdDate} <p>Title <input type="text" id="title" name="title" size="${titleSize}" value="${task.title}"></p>
-                                <p>Description <textarea name="description" cols="40" rows="5">${task.description}</textarea></p>
-                                <input type="hidden" name="id" value="${task.id}"/>
-                                <input type="submit" class="update-button" id="update-task-button" name="update-task" value="Update" />
-                            </form>
-                            <input type="submit" class="cancel-button" name="cancel-task" value= "Cancel" onclick="unEditTask(${task.id})" />
-                            <form class="delete" action="/dashboard" method="POST">
-                                <input type="hidden" name="taskId" value="${task.id}"/>
-                                <input type="submit" class="delete-button" id="delete-task-button" name="delete-task" value="Delete" />
-                            </form>
-                        </div>
                     </ul>
                 </li>
             </div>
