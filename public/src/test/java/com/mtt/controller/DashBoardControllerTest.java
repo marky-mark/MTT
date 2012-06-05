@@ -12,6 +12,7 @@ import com.mtt.service.request.UpdateTaskRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +44,10 @@ public class DashBoardControllerTest {
 
     private Validator validator;
 
+    private BindingResult bindingResult;
+
+    private MTTSession mttSession;
+
     @Before
     public void init() {
         controller = new DashBoardController();
@@ -52,11 +57,14 @@ public class DashBoardControllerTest {
         authenticatedUserSession = mock(AuthenticatedUserSession.class);
         httpServletRequest = mock(HttpServletRequest.class);
         validator = mock(Validator.class);
+        bindingResult = mock(BindingResult.class);
+        mttSession = mock(MTTSession.class);
         ReflectionTestUtils.setField(controller, "userService", userService);
         ReflectionTestUtils.setField(controller, "taskService", taskService);
         ReflectionTestUtils.setField(controller, "authenticatedUserSession", authenticatedUserSession);
         ReflectionTestUtils.setField(controller, "cookieService", cookieService);
         ReflectionTestUtils.setField(controller, "validator", validator);
+        ReflectionTestUtils.setField(controller, "mttSession", mttSession);
     }
 
     @Test

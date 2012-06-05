@@ -15,9 +15,9 @@
     <%--Create a new Task--%>
     <div id="create-task">
         <form action="/dashboard" method="POST">
-            <p>Title <input type="text" id="title" name="title" size="${titleSize}"/></p>
+            <p>Title <input type="text" id="title" name="title" size="${titleSize}" <c:if test="${not empty createTask}">value="${createTask.title}" </c:if>/></p>
             <span class="error"><c:if test="${e:hasError(errors, 'title')}">${e:getError(errors,'title')}</c:if></span>
-            <p id="description-text">Description <textarea name="description" cols="40" rows="5"></textarea></p>
+            <p id="description-text">Description <textarea name="description" cols="40" rows="5"><c:if test="${not empty createTask}">${createTask.description}</c:if></textarea></p>
              <div><span class="error"><c:if test="${e:hasError(errors, 'description')}">${e:getError(errors,'description')}</c:if></span></div>
             <input type="submit" id="create-task-button" name="create-task" value="Create task" />
         </form>

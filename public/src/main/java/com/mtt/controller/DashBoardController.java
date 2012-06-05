@@ -71,6 +71,9 @@ public final class DashBoardController extends BaseController {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private MTTSession mttSession;
+
     /**
      * get the dashboard page
      * @param request http
@@ -107,8 +110,11 @@ public final class DashBoardController extends BaseController {
 
         if (violations.size() > 0) {
             addErrors(map, violations);
+            mttSession.setCreateSession(createTaskBean);
+            map.put("createTask", createTaskBean);
         } else {
             taskService.create(convert(user.getId(), createTaskBean));
+            mttSession.clearCreateTaskSession();
         }
 
         return populateCommonAttributes(map, user);
@@ -135,6 +141,20 @@ public final class DashBoardController extends BaseController {
 
         return populateCommonAttributes(map, user);
     }
+
+//    @RequestMapping(method = RequestMethod.POST, headers = "X-Requested-With=XMLHttpRequest", params = "validate=true")
+//    @ResponseStatus(value = HttpStatus.OK)
+//    @ResponseBody
+//    public JsonResponse validateUpdate(@Valid @ModelAttribute("updateTaskBean")UpdateTaskRequest updateTaskBean,
+//                                       BindingResult bindingResult) {
+//
+//
+//
+//        if (bindingResult.getErrorCount() < 0) {
+//
+//        }
+//
+//    }
 
     /**
      * Update a user's specified task
