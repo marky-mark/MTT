@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="taskComponent" %>
 <%@ taglib uri="http://www.mtt.com/errors" prefix="e" %>
+<%@ taglib uri="http://www.mtt.com/session" prefix="s" %>
 
 <div id="content">
     <h1>Welcome '${user.username}'</h1>
@@ -15,9 +16,9 @@
     <%--Create a new Task--%>
     <div id="create-task">
         <form action="/dashboard" method="POST">
-            <p>Title <input type="text" id="title" name="title" size="${titleSize}" <c:if test="${not empty createTask}">value="${createTask.title}" </c:if>/></p>
+            <p>Title <input type="text" id="title" name="title" size="${titleSize}" <c:if test="${s:hasCreateTaskBean(mttSession)}"> value="${s:getCreateTaskBean(mttSession).title}" </c:if>/></p>
             <span class="error"><c:if test="${e:hasError(errors, 'title')}">${e:getError(errors,'title')}</c:if></span>
-            <p id="description-text">Description <textarea name="description" cols="40" rows="5"><c:if test="${not empty createTask}">${createTask.description}</c:if></textarea></p>
+            <p id="description-text">Description <textarea name="description" cols="40" rows="5"><c:if test="${s:hasCreateTaskBean(mttSession)}">${s:getCreateTaskBean(mttSession).description}</c:if></textarea></p>
              <div><span class="error"><c:if test="${e:hasError(errors, 'description')}">${e:getError(errors,'description')}</c:if></span></div>
             <input type="submit" id="create-task-button" name="create-task" value="Create task" />
         </form>
@@ -38,7 +39,8 @@
                                 isChecked="${task.checked}"
                                 date="${task.createdDate}"
                                 titleSize="${titleSize}"
-                                errors="${errors}"/>
+                                errors="${errors}"
+                                mttSession="${session}"/>
 
                     </ul>
                 </li>

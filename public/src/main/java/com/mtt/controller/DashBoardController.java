@@ -1,6 +1,7 @@
 package com.mtt.controller;
 
 import com.mtt.bean.CreateTaskBean;
+import com.mtt.bean.MTTSession;
 import com.mtt.cookies.CookieService;
 import com.mtt.domain.entity.Task;
 import com.mtt.domain.entity.User;
@@ -111,7 +112,6 @@ public final class DashBoardController extends BaseController {
         if (violations.size() > 0) {
             addErrors(map, violations);
             mttSession.setCreateSession(createTaskBean);
-            map.put("createTask", createTaskBean);
         } else {
             taskService.create(convert(user.getId(), createTaskBean));
             mttSession.clearCreateTaskSession();
@@ -165,7 +165,6 @@ public final class DashBoardController extends BaseController {
     public ModelAndView updateTask(@ModelAttribute("updateTaskBean")UpdateTaskRequest updateTaskBean) {
 
         Map<String, Object> map = new HashMap<String, Object>();
-        Long userId = 1L;
 
         User user = userService.find(authenticatedUserSession.getUsername());
 
@@ -175,8 +174,10 @@ public final class DashBoardController extends BaseController {
 
             if (violations.size() > 0) {
                     addErrors(map, violations, updateTaskBean.getId());
+                    mttSession.setUpdateTaskSession(updateTaskBean);
             } else {
                 taskService.update(updateTaskBean);
+                mttSession.clearUpdateTaskSession(updateTaskBean.getId());
             }
         } catch (TaskNotFoundException e) {
             LOGGER.error("Attempted to update a task that does not exist id:" + updateTaskBean.getId());
@@ -221,6 +222,7 @@ public final class DashBoardController extends BaseController {
         map.put(DESC_SIZE_NAME, DESC_SIZE);
         map.put(TITLE_SIZE_NAME, TITLE_SIZE);
         map.put(LOGOUT_LINK, LogoutController.PAGE_PATH);
+        map.put("mttSession", mttSession);
 
         return new ModelAndView(VIEW_NAME, map);
     }

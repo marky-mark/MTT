@@ -1,6 +1,5 @@
-package com.mtt.controller;
+package com.mtt.bean;
 
-import com.mtt.bean.CreateTaskBean;
 import com.mtt.service.request.UpdateTaskRequest;
 
 import java.util.HashMap;
@@ -41,5 +40,15 @@ public class MTTSessionImpl implements MTTSession {
     public void clearAll() {
         clearCreateTaskSession();
         clearAllTaskSessions();
+    }
+
+    @Override
+    public CreateTaskBean getCreateTaskBean() {
+        return taskBean;
+    }
+
+    @Override
+    public UpdateTaskRequest getTaskRequest(Long id) {
+        return updateTaskRequestList.get(id);
     }
 }

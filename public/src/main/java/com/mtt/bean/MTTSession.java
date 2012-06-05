@@ -1,6 +1,5 @@
-package com.mtt.controller;
+package com.mtt.bean;
 
-import com.mtt.bean.CreateTaskBean;
 import com.mtt.service.request.UpdateTaskRequest;
 
 import java.io.Serializable;
@@ -18,4 +17,8 @@ public interface MTTSession extends Serializable {
     public void clearAllTaskSessions();
 
     public void clearAll();
+
+    public CreateTaskBean getCreateTaskBean();
+
+    public UpdateTaskRequest getTaskRequest(Long id);
 }
