@@ -14,15 +14,20 @@ import com.mtt.service.request.UpdateTaskRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validator;
 import java.util.HashMap;
 import java.util.Map;
@@ -120,6 +125,24 @@ public final class DashBoardController extends BaseController {
         return populateCommonAttributes(map, user);
     }
 
+    @RequestMapping(method = RequestMethod.POST,
+                    headers = "X-Requested-With=XMLHttpRequest",
+                    params = "validate=true")
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public CreateTaskBean validateCreate(@Valid @ModelAttribute("updateTaskBean") CreateTaskBean createTaskBean,
+                                        BindingResult bindingResult) {
+
+        mttSession.setCreateSession(createTaskBean);
+
+//        if (bindingResult.getErrorCount() < 0) {
+//
+//        }
+
+        return createTaskBean;
+
+    }
+
     /**
      * Delete a specific task
      * @param taskId  task to be deleted
@@ -141,20 +164,6 @@ public final class DashBoardController extends BaseController {
 
         return populateCommonAttributes(map, user);
     }
-
-//    @RequestMapping(method = RequestMethod.POST, headers = "X-Requested-With=XMLHttpRequest", params = "validate=true")
-//    @ResponseStatus(value = HttpStatus.OK)
-//    @ResponseBody
-//    public JsonResponse validateUpdate(@Valid @ModelAttribute("updateTaskBean")UpdateTaskRequest updateTaskBean,
-//                                       BindingResult bindingResult) {
-//
-//
-//
-//        if (bindingResult.getErrorCount() < 0) {
-//
-//        }
-//
-//    }
 
     /**
      * Update a user's specified task

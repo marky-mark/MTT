@@ -28,6 +28,8 @@
         <mtt.jdbc.username>mtt</mtt.jdbc.username>
         <mtt.jdbc.password>mtt</mtt.jdbc.password>
 
+        <jackson.version>1.9.2</jackson.version>
+
         <integration.jdbc.driver>org.h2.Driver</integration.jdbc.driver>
         <integration.jdbc.driver>org.h2.Driver</integration.jdbc.driver>
         <integration.jdbc.url>jdbc:h2:mem:integration-test;MODE=MySQL</integration.jdbc.url>
@@ -368,6 +370,21 @@
                 <groupId>net.jawr</groupId>
                 <artifactId>jawr-bundle-processor</artifactId>
                 <version>1.4.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-core-asl</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-xc</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

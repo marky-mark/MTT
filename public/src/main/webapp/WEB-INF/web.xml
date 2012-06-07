@@ -76,11 +76,26 @@
         <load-on-startup>0</load-on-startup>
     </servlet>
 
+        <servlet>
+        <servlet-name>ajax</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:/META-INF/ajax-context.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
     <!--Servlet Mappings-->
 
     <servlet-mapping>
         <servlet-name>website</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ajax</servlet-name>
+        <url-pattern>/ajax/*</url-pattern>
     </servlet-mapping>
 
     <!--JAWR-->

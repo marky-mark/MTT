@@ -25,9 +25,7 @@
         </property>
     </bean>
 
-    <mvc:annotation-driven/>
-
-    <context:component-scan base-package="com.mtt.controller"/>
+    <import resource="common-context.xml"/>
 
     <!--REST?-->
     <!--<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">-->
