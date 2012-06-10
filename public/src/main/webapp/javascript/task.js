@@ -8,23 +8,26 @@ function unEditTask(taskId) {
     document.getElementById("text-task-"+taskId+"-edit").hidden = 'true';
 }
 
-function validateUpdateBean(id) {
+function validateUpdateBean(fields, id) {
 
     //clear the form first
-    $('#title_' + id + '-error').empty();
-    $('#description_' + id + '-error').empty();
+    for (var i = 0; i < fields.length; i++){
+        $('#' + fields[i] + "_" + id + '-error').empty();
+    }
+//    $('#title_' + id + '-error').empty();
+//    $('#description_' + id + '-error').empty();
 
     var form = document.forms["update-task-" + id + "-form"];
     var checked = 'false';
-    console.log($('#checked_'+id + ":checked"));
-    if ($('#checked_'+id).attr('checked') == 'checked') {
+    console.log($('#checked_' + id + ":checked"));
+    if ($('#checked_'+ id).attr('checked') == 'checked') {
         checked = 'true';
     }
 
     var serialisedFormData = "title="+ $('#title_'+id).val() +
                              "&description=" + $('#description_'+id).val() +
                              "&id=" + id +
-                             "&checked="+ checked;
+                             "&checked=" + checked;
 
     console.log(serialisedFormData);
 
@@ -42,8 +45,12 @@ function validateUpdateBean(id) {
             for(var i=0; i < errors.length; i++) {
 //                console.log(errors[i].field + " : " + errors[i].message + "\n");
 //                console.log('#' + errors[i].field + '_' + id + '-error' + "\n");
-                $('#' + errors[i].field + '_' + id + '-error').empty();
-                $('#' + errors[i].field + '_' + id + '-error').append(errors[i].message);
+                for (var j=0; j < fields.length; j++){
+                    if (fields[j] == errors[i].field) {
+                        $('#' + errors[i].field + '_' + id + '-error').empty();
+                        $('#' + errors[i].field + '_' + id + '-error').append(errors[i].message);
+                    }
+                }
             }
         },
         /*A function to be called when the request finishes (after success and error callbacks are executed).
@@ -58,11 +65,12 @@ function validateUpdateBean(id) {
 
 }
 
-function validateCreateBean() {
+function validateCreateBean(fields) {
 
     //clear the form first
-    $('#title-error').empty();
-    $('#description-error').empty();
+    for (var i = 0; i < fields.length; i++){
+        $('#'+fields[i] + '-error').empty();
+    }
 
     var form = document.forms["create-task-form"];
 
@@ -79,8 +87,12 @@ function validateCreateBean() {
             for(var i=0; i < errors.length; i++) {
 //                console.log(errors[i].field + " : " + errors[i].message + "\n");
 //                console.log('#' + errors[i].field + '-error' + "\n");
-                $('#' + errors[i].field + '-error').empty();
-                $('#' + errors[i].field + '-error').append(errors[i].message);
+                for (var j=0; j < fields.length; j++){
+                    if (fields[j] == errors[i].field) {
+                        $('#' + errors[i].field + '-error').empty();
+                        $('#' + errors[i].field + '-error').append(errors[i].message);
+                    }
+                }
             }
         },
         /*A function to be called when the request finishes (after success and error callbacks are executed).

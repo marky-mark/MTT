@@ -16,11 +16,11 @@
     <%--Create a new Task--%>
     <div id="create-task">
         <form action="/dashboard" method="POST" id="create-task-form">
-            <p>Title <input type="text" id="title" name="title" size="${titleSize}" <c:if test="${s:hasCreateTaskBean(mttSession)}"> value="${s:getCreateTaskBean(mttSession).title}" </c:if> onblur="validateCreateBean();"/></p>
+            <p>Title <input type="text" id="title" name="title" size="${titleSize}" <c:if test="${s:hasCreateTaskBean(mttSession)}"> value="${s:getCreateTaskBean(mttSession).title}" </c:if> onblur="validateCreateBean(['title']);"/></p>
             <span id="title-error" class="error"><c:if test="${e:hasError(errors, 'title')}">${e:getError(errors,'title')}</c:if></span>
-            <p id="description-text">Description <textarea id="description" name="description" cols="40" rows="5" onblur="validateCreateBean();"><c:if test="${s:hasCreateTaskBean(mttSession)}">${s:getCreateTaskBean(mttSession).description}</c:if></textarea></p>
+            <p id="description-text">Description <textarea id="description" name="description" cols="40" rows="5" onblur="validateCreateBean(['description']);"><c:if test="${s:hasCreateTaskBean(mttSession)}">${s:getCreateTaskBean(mttSession).description}</c:if></textarea></p>
              <div><span id="description-error" class="error"><c:if test="${e:hasError(errors, 'description')}">${e:getError(errors,'description')}</c:if></span></div>
-            <input type="submit" id="create-task-button" name="create-task" value="Create task" onmouseover="validateCreateBean();" />
+            <input type="submit" id="create-task-button" name="create-task" value="Create task" onmouseover="validateCreateBean(['title', 'description']);" />
         </form>
     </div>
 
