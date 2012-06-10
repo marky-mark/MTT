@@ -17,7 +17,7 @@ public class UpdateTaskRequest {
     @NotHtml(message = "task description cannot contain html tags")
     private String description;
 
-    private boolean checked;
+    private Boolean checked;
 
     private Long id;
 
@@ -37,7 +37,7 @@ public class UpdateTaskRequest {
         this.description = description;
     }
 
-    public boolean isChecked() {
+    public Boolean isChecked() {
         return checked;
     }
 

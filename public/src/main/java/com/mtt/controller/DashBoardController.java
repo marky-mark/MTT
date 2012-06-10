@@ -128,13 +128,27 @@ public final class DashBoardController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST,
                     headers = "X-Requested-With=XMLHttpRequest",
-                    params = "validate=true")
+                    params = "create-validate=true")
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public JsonValidationResponse validateCreate(@Valid @ModelAttribute("updateTaskBean") CreateTaskBean createTaskBean,
+    public JsonValidationResponse validateCreate(@Valid CreateTaskBean createTaskBean,
                                         BindingResult bindingResult) {
 
         mttSession.setCreateSession(createTaskBean);
+
+        return new JsonValidationResponse(bindingResult);
+
+    }
+
+    @RequestMapping(method = RequestMethod.POST,
+                    headers = "X-Requested-With=XMLHttpRequest",
+                    params = "update-validate=true")
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public JsonValidationResponse validateUpdate(@Valid UpdateTaskRequest updateTaskBean,
+                                        BindingResult bindingResult) {
+
+        mttSession.setUpdateTaskSession(updateTaskBean);
 
         return new JsonValidationResponse(bindingResult);
 
