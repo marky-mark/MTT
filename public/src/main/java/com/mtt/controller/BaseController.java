@@ -1,6 +1,6 @@
 package com.mtt.controller;
 
-import com.mtt.error.MVCErrorReporter;
+import com.mtt.error.mvc.MVCErrorReporter;
 import com.mtt.error.ReportableErrors;
 import org.springframework.ui.Model;
 

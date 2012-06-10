@@ -11,14 +11,25 @@ function unEditTask(taskId) {
 
 
 function validateCreateBean() {
+
+    var form = document.forms["create-task-form"];
+
     $.ajax({
-        url: "/ajax/dashboard?validate=true",
+        url: "/ajax" + form.getAttribute('action') + "?validate=true",
         type: "POST",
-        data: "title=hello&description=hello2",
+
+        data: "title="+ $('#title').val() +"&description="+ $('#description').val(),
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         dataType: "json",
         success:function(validationResponse){
-            console.log('got it');
+            var errors = validationResponse.errorReporter.fieldErrors;
+
+            for(var i=0; i < errors.length; i++) {
+                console.log(errors[i].field + " : " + errors[i].message + "\n");
+                console.log('#' + errors[i].field + '-error' + "\n");
+                $('#' + errors[i].field + '-error').empty();
+                $('#' + errors[i].field + '-error').append(errors[i].message);
+            }
         },
         complete:function(jqXHR, textStatus){
             if (textStatus === 'parsererror'){

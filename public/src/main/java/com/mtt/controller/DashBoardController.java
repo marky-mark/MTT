@@ -6,6 +6,7 @@ import com.mtt.cookies.CookieService;
 import com.mtt.domain.entity.Task;
 import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.TaskNotFoundException;
+import com.mtt.error.json.JsonValidationResponse;
 import com.mtt.security.AuthenticatedUserSession;
 import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
@@ -130,16 +131,12 @@ public final class DashBoardController extends BaseController {
                     params = "validate=true")
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public CreateTaskBean validateCreate(@Valid @ModelAttribute("updateTaskBean") CreateTaskBean createTaskBean,
+    public JsonValidationResponse validateCreate(@Valid @ModelAttribute("updateTaskBean") CreateTaskBean createTaskBean,
                                         BindingResult bindingResult) {
 
         mttSession.setCreateSession(createTaskBean);
 
-//        if (bindingResult.getErrorCount() < 0) {
-//
-//        }
-
-        return createTaskBean;
+        return new JsonValidationResponse(bindingResult);
 
     }
 
