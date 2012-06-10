@@ -10,6 +10,10 @@ function unEditTask(taskId) {
 
 function validateUpdateBean(id) {
 
+    //clear the form first
+    $('#title_' + id + '-error').empty();
+    $('#description_' + id + '-error').empty();
+
     var form = document.forms["update-task-" + id + "-form"];
     var checked = 'false';
     console.log($('#checked_'+id + ":checked"));
@@ -55,6 +59,10 @@ function validateUpdateBean(id) {
 }
 
 function validateCreateBean() {
+
+    //clear the form first
+    $('#title-error').empty();
+    $('#description-error').empty();
 
     var form = document.forms["create-task-form"];
 
