@@ -12,6 +12,7 @@ import com.mtt.service.UserService;
 import com.mtt.service.request.UpdateTaskRequest;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,6 +50,8 @@ public class DashBoardControllerTest {
 
     private MTTSession mttSession;
 
+    private ConversionService conversionService;
+
     @Before
     public void init() {
         controller = new DashBoardController();
@@ -60,12 +63,14 @@ public class DashBoardControllerTest {
         validator = mock(Validator.class);
         bindingResult = mock(BindingResult.class);
         mttSession = mock(MTTSession.class);
+        conversionService = mock(ConversionService.class);
         ReflectionTestUtils.setField(controller, "userService", userService);
         ReflectionTestUtils.setField(controller, "taskService", taskService);
         ReflectionTestUtils.setField(controller, "authenticatedUserSession", authenticatedUserSession);
         ReflectionTestUtils.setField(controller, "cookieService", cookieService);
         ReflectionTestUtils.setField(controller, "validator", validator);
         ReflectionTestUtils.setField(controller, "mttSession", mttSession);
+        ReflectionTestUtils.setField(controller, "conversionService", conversionService);
     }
 
     @Test

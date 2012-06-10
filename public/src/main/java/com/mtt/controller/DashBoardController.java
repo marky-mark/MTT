@@ -15,6 +15,7 @@ import com.mtt.service.request.UpdateTaskRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -81,6 +82,9 @@ public final class DashBoardController extends BaseController {
     @Autowired
     private MTTSession mttSession;
 
+    @Autowired
+    private ConversionService conversionService;
+
     /**
      * get the dashboard page
      * @param request http
@@ -119,7 +123,8 @@ public final class DashBoardController extends BaseController {
             addErrors(map, violations);
             mttSession.setCreateSession(createTaskBean);
         } else {
-            taskService.create(convert(user.getId(), createTaskBean));
+            CreateTaskRequest createTaskRequest = conversionService.convert(createTaskBean, CreateTaskRequest.class);
+            taskService.create(createTaskRequest);
             mttSession.clearCreateTaskSession();
         }
 

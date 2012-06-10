@@ -34,7 +34,13 @@
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
-    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"/>
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.mtt.converter.CreateTaskBeanToCreateTaskRequestConverter"/>
+            </set>
+        </property>
+    </bean>
 
     <!--Task Session-->
     <bean id="mttSession" class="com.mtt.bean.MTTSessionImpl" scope="session">
