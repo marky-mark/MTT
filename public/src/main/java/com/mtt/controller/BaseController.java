@@ -18,6 +18,10 @@ public abstract class BaseController {
        model.put("errors", new MVCErrorReporter(violations));
     }
 
+    protected void addErrors(Model model, Set<? extends ConstraintViolation<?>> violations) {
+       model.addAttribute("errors", new MVCErrorReporter(violations));
+    }
+
     protected void addErrors(Map<String, Object> model, Set<? extends ConstraintViolation<?>> violations, Long taskId) {
        model.put("errors", new MVCErrorReporter(violations, taskId));
     }

@@ -25,4 +25,12 @@
         <put-attribute name="body" value="/WEB-INF/jsp/dashboard.jsp"/>
     </definition>
 
+    <definition name="register" extends="baseDefinition">
+        <put-attribute name="body" value="/WEB-INF/jsp/register.jsp"/>
+    </definition>
+
+    <definition name="register-confirmation" extends="baseDefinition">
+        <put-attribute name="body" value="/WEB-INF/jsp/register-confirmation.jsp"/>
+    </definition>
+
 </tiles-definitions>
