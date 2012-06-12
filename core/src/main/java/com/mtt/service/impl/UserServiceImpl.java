@@ -1,10 +1,13 @@
 package com.mtt.service.impl;
 
 import com.mtt.domain.entity.User;
+import com.mtt.domain.entity.UserStatus;
 import com.mtt.domain.exception.IncorrectPasswordException;
+import com.mtt.domain.exception.UserAlreadyExistsException;
 import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.repository.UserRepository;
 import com.mtt.service.UserService;
+import com.mtt.service.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,5 +53,22 @@ public final class UserServiceImpl implements UserService
         }
 
         throw new IncorrectPasswordException();
+    }
+
+    @Override
+    public User create(CreateUserRequest createUserRequest) {
+        if (userRepository.findByUserName(createUserRequest.getUserName()) != null) {
+            throw new UserAlreadyExistsException(createUserRequest.getUserName());
+        }
+
+        User user = new User();
+        user.setUsername(createUserRequest.getUserName());
+        user.setFirstName(createUserRequest.getFirstName());
+        user.setLastName(createUserRequest.getLastName());
+        user.setPassword(createUserRequest.getPlainTextPassword());
+        user.setTelephoneNumber(createUserRequest.getTelephoneNumber());
+        user.setStatus(UserStatus.AWAITING_ACTIVATION);
+        userRepository.saveAndFlush(user);
+        return user;
     }
 }

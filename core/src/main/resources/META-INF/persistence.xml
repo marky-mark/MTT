@@ -6,6 +6,7 @@
     <persistence-unit name="mtt.persistence">
         <class>com.mtt.domain.entity.User</class>
         <class>com.mtt.domain.entity.Task</class>
+        <class>com.mtt.domain.entity.UserActivationKey</class>
         <properties>
             <property name="hibernate.show_sql" value="false"/>
         </properties>

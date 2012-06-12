@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Date;
@@ -31,7 +32,8 @@ public class Task {
     @Column(name = "checked", nullable = false)
     private boolean checked;
 
-    @OneToOne
+    //A task may only have 1 user
+    @ManyToOne
     @JoinColumn(name = "usr_id")
     private User user;
 

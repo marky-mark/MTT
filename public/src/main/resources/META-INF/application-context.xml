@@ -38,6 +38,7 @@
         <property name="converters">
             <set>
                 <bean class="com.mtt.converter.CreateTaskBeanToCreateTaskRequestConverter"/>
+                <bean class="com.mtt.converter.RegisterUserBeanToCreateUserRequestConverter"/>
             </set>
         </property>
     </bean>

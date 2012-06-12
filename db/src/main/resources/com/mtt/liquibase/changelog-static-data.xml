@@ -26,4 +26,25 @@
         </insert>
     </changeSet>
 
+    <changeSet id="insert-default-for-usr-added-fields" author="mkelly" dbms="mysql">
+        <update tableName="usr">
+            <column name="first_name" value="unknown"/>
+            <where>
+                first_name is NULL or first_name = '';
+            </where>
+        </update>
+        <update tableName="usr">
+            <column name="last_name" value="unknown"/>
+            <where>
+                last_name is NULL or last_name = '';
+            </where>
+        </update>
+        <update tableName="usr">
+            <column name="status" value="ACTIVE"/>
+            <where>
+                status is NULL or status = '';
+            </where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>
