@@ -6,10 +6,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
+    <!--REMEMBER: 'create database mtt default character set utf8;'-->
+
     <changeSet id="1" author="mark">
 
       <createTable tableName="usr">
-         <column name="id" type="int">
+         <column name="id" type="int" autoIncrement="true">
              <constraints primaryKey="true" nullable="false"/>
          </column>
          <column name="usrname" type="varchar(50)">
@@ -67,10 +69,10 @@
 
     <changeSet id="activation-key-structure" author="mark" >
         <createTable tableName="usr_activation_key">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="activation_key" type="varchar(20)">
+            <column name="activation_key" type="varchar(100)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="expiry_date" type="timestamp" defaultValueDate="CURRENT_TIMESTAMP">

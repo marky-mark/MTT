@@ -1,7 +1,7 @@
 package com.mtt.controller;
 
 import com.mtt.bean.RegisterUserBean;
-import com.mtt.service.UserService;
+import com.mtt.service.RegistrationService;
 import com.mtt.service.request.CreateUserRequest;
 import com.mtt.validation.groups.RegisterUserBeanValidationGroups;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class RegisterUserController extends BaseController {
     public static final String VIEW_NAME = "register";
 
     @Autowired
-    private UserService userService;
+    private RegistrationService registrationService;
 
     @Autowired
     private ConversionService conversionService;
@@ -58,7 +58,7 @@ public class RegisterUserController extends BaseController {
             return VIEW_NAME;
         }
 
-        userService.create(conversionService.convert(registerUserBean, CreateUserRequest.class));
+        registrationService.registerUser(conversionService.convert(registerUserBean, CreateUserRequest.class));
         model.addAttribute("emailAddress", registerUserBean.getEmailAddress());
 
         return "redirect:" + RegisterUserConfirmationController.PAGE_PATH;

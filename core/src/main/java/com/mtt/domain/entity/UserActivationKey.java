@@ -1,5 +1,6 @@
 package com.mtt.domain.entity;
 
+import com.mtt.service.KeyGeneratorService;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
@@ -34,8 +35,6 @@ public class UserActivationKey {
     @Column(name = "expiry_date", nullable = false)
     private Date expiryDate;
 
-    //Many Activation Keys may map to 1 User...but the activation Key may only have 1 User
-    //ANOTHER EXAMPLE: Many Students may have the same address..but they may only have 1 address
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usr_id", nullable = false)
     private User user;
@@ -61,14 +60,13 @@ public class UserActivationKey {
      *
      * @param user                the user who "owns" the key.
      * @param keyGeneratorService service for generating key
-     * @param clock               the date/time source
      */
-//    public void initialise(User user, KeyGeneratorService keyGeneratorService, Clock clock) {
-//        if (id == null) {
-//            this.user = user;
-//            expiryDate = clock.now().plus(Days.days(ACTIVE_DAYS)).toDate();
-//            key = keyGeneratorService.generateKey(user.getUsername(), user.getSalt());
-//        }
-//    }
+    public void initialise(User user, KeyGeneratorService keyGeneratorService) {
+        if (id == null) {
+            this.user = user;
+            expiryDate = new DateTime(new Date()).plus(Days.days(ACTIVE_DAYS)).toDate();
+            key = keyGeneratorService.generateKey(user.getUsername());
+        }
+    }
 }
 

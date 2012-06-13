@@ -9,6 +9,7 @@ public class RegisterUserBeanToCreateUserRequestConverter implements Converter<R
     @Override
     public CreateUserRequest convert(RegisterUserBean registerUserBean) {
         CreateUserRequest userRequest = new CreateUserRequest();
+        userRequest.setUserName(registerUserBean.getEmailAddress());
         userRequest.setFirstName(registerUserBean.getFirstName());
         userRequest.setLastName(registerUserBean.getLastName());
         userRequest.setTelephoneNumber(registerUserBean.getEmailAddress());

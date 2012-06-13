@@ -12,8 +12,9 @@
             <column name="usrname" value="test"/>
             <!--Set the password to encrypted value of 'abc123'-->
             <column name="passwrd" value="FzLJc09IApq0Vm7lqfFjQ8UKL4n6xB8I9VtKEPrQGSY="/>
-            <!--<column name="passwrd" value="NhRtGBON6ZZOmbzBr0+pIfaau6EHIc1MBPlBx+y93a0="/>-->
-            <!--<column name="salt" value="EqWuvs1+qBl1lDyxCOXGHA=="/>-->
+            <column name="first_name" value="first"/>
+            <column name="last_name" value="last"/>
+            <column name="status" value="ACTIVE"/>
         </insert>
     </changeSet>
 
