@@ -1,14 +1,11 @@
-package com.mtt.email.impl;
+package com.mtt.service.impl;
 
 import com.mtt.email.EmailCreator;
 import com.mtt.email.EmailSender;
-import com.mtt.email.EmailService;
-import com.mtt.email.preperation.EmailUrlScheme;
 import com.mtt.email.preperation.EmailUrlScheme;
 import com.mtt.email.preperation.TemplateEmailModel;
 import com.mtt.email.preperation.TemplateEmailModelFactory;
-import com.mtt.email.preperation.TemplateEmailModel;
-import com.mtt.email.preperation.TemplateEmailModelFactory;
+import com.mtt.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

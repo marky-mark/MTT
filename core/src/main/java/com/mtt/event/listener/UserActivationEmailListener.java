@@ -1,6 +1,7 @@
 package com.mtt.event.listener;
 
 import com.mtt.email.EmailSender;
+import com.mtt.email.preperation.UserActivationEmailCreator;
 import com.mtt.event.NewUserRegisteredEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -19,7 +20,7 @@ public final class UserActivationEmailListener implements ApplicationListener<Ne
     @Override
     public void onApplicationEvent(NewUserRegisteredEvent newUserRegisteredEvent) {
         if (newUserRegisteredEvent.getUserActivationKey() != null) {
-//            emailSender.send(new UserActivationEmailCreator(newUserRegisteredEvent.getUserActivationKey()));
+            emailSender.send(new UserActivationEmailCreator(newUserRegisteredEvent.getUserActivationKey()));
         }
     }
 }

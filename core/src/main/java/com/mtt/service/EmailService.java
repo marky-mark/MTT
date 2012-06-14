@@ -1,4 +1,4 @@
-package com.mtt.email;
+package com.mtt.service;
 
 import com.mtt.email.preperation.EmailPreparator;
 

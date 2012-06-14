@@ -22,11 +22,17 @@
     <tx:annotation-driven/>
 
     <context:component-scan base-package="com.mtt.service"/>
+    <context:component-scan base-package="com.mtt.event"/>
+    <context:component-scan base-package="com.mtt.email"/>
+    <context:component-scan base-package="com.mtt.cookies"/>
     <context:component-scan base-package="com.mtt.test"/>
     <!--<context:component-scan base-package="com.mtt.security" scoped-proxy="targetClass" />-->
 
     <jpa:repositories base-package="com.mtt.repository"/>
     <!--<jpa:auditing auditor-aware-ref="securityServiceImpl"/>-->
+
+    <import resource="classpath:/META-INF/email-context.xml"/>
+    <import resource="classpath:/META-INF/executer-context.xml" />
 
     <bean id="testDatasource" class="org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactoryBean">
         <property name="databaseType" value="H2"/>

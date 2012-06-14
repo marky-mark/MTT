@@ -1,8 +1,7 @@
 package com.mtt.email.impl;
 
 import com.mtt.email.preperation.EmailPreparator;
-import com.mtt.email.EmailService;
-import com.mtt.email.preperation.EmailPreparator;
+import com.mtt.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
