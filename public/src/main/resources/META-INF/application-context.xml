@@ -24,14 +24,16 @@
 
     <context:component-scan base-package="com.mtt.service"/>
     <context:component-scan base-package="com.mtt.event"/>
+    <context:component-scan base-package="com.mtt.email"/>
     <context:component-scan base-package="com.mtt.cookies"/>
     <context:component-scan base-package="com.mtt.security" scoped-proxy="targetClass" />
 
     <jpa:repositories base-package="com.mtt.repository"/>
 
     <import resource="datasource-context.xml"/>
-
     <import resource="shiro-security-context.xml"/>
+    <import resource="executer-context.xml" />
+    <import resource="email-context.xml"/>
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
