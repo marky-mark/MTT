@@ -1,4 +1,4 @@
-package com.mtt.email.preperation;
+package com.mtt.email.types;
 
 
 import com.mtt.domain.entity.UserActivationKey;

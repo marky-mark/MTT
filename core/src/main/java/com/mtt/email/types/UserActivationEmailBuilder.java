@@ -1,7 +1,11 @@
-package com.mtt.email.preperation;
+package com.mtt.email.types;
 
 import com.mtt.domain.entity.User;
 import com.mtt.domain.entity.UserActivationKey;
+import com.mtt.email.preperation.EmailConstants;
+import com.mtt.email.preperation.EmailTemplate;
+import com.mtt.email.preperation.EmailUrlScheme;
+import com.mtt.email.preperation.TemplateEmailModel;
 import org.springframework.util.Assert;
 
 import java.io.UnsupportedEncodingException;
@@ -33,7 +37,7 @@ public final class UserActivationEmailBuilder {
     }
 
     /**
-     * Populate the {@link TemplateEmailModel} with content for the user activation email.
+     * Populate the {@link com.mtt.email.preperation.TemplateEmailModel} with content for the user activation email.
      *
      * @param model the model to populate
      */

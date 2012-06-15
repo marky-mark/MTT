@@ -1,7 +1,7 @@
 package com.mtt.event.listener;
 
 import com.mtt.email.EmailSender;
-import com.mtt.email.preperation.UserActivationEmailCreator;
+import com.mtt.email.types.UserActivationEmailCreator;
 import com.mtt.event.NewUserRegisteredEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
