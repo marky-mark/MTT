@@ -2,6 +2,8 @@ package com.mtt.email.impl;
 
 import com.mtt.email.preperation.EmailPreparator;
 import com.mtt.service.EmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,16 +17,12 @@ import javax.mail.internet.MimeMessage;
  */
 @Service
 public final class JavaMailEmailService implements EmailService {
-//
-//    protected static final SimpleLogEvent SUCCESS_EVENT = new SimpleLogEvent("EMAIL_SENT_SUCCESSFULLY", LogLevel.INFO);
-//
-//    protected static final SimpleLogEvent FAILURE_EVENT = new SimpleLogEvent("FAILED_TO_SEND_EMAIL", LogLevel.ERROR);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(JavaMailEmailService.class);
 
     @Autowired
     private JavaMailSender mailSender;
 
-//    @Autowired
-//    private LoggingService loggingService;
 
     @Override
     public void sendEmail(final EmailPreparator emailPreparator) {
@@ -35,11 +33,10 @@ public final class JavaMailEmailService implements EmailService {
                     emailPreparator.prepareMessage(new MimeMessageHelper(mimeMessage, emailPreparator.isMultipart()));
                 }
             });
-//            EventLogMessage logMessage = loggingService.create(SUCCESS_EVENT, JavaMailEmailService.class);
-//            logMessage.addLoggable(emailPreparator).log();
+            LOGGER.debug("mail sent :)");
         } catch (RuntimeException ex) {
-//            EventLogMessage logMessage = loggingService.create(FAILURE_EVENT, JavaMailEmailService.class);
-//            logMessage.addLoggable(emailPreparator).setException(ex).log();
+            LOGGER.error("Failure to send mail " + ex.getCause());
+
         }
     }
 }

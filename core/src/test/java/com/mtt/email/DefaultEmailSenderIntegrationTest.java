@@ -48,7 +48,7 @@ public class DefaultEmailSenderIntegrationTest extends BaseIntegrationTest {
         emailSender.send(new TestEmailCreator());
 
         List<WiserMessage> messages = wiser.getMessages();
-//        assertThat(messages.size(), equalTo(1));
+        assertThat(messages.size(), equalTo(1));
 
         MimeMessage message = messages.get(0).getMimeMessage();
         assertThat(message.getSubject(), equalTo("A Test Message"));
