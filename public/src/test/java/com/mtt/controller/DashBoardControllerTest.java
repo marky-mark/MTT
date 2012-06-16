@@ -7,6 +7,7 @@ import com.mtt.domain.entity.Task;
 import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.TaskNotFoundException;
 import com.mtt.security.AuthenticatedUserSession;
+import com.mtt.service.CacheExampleService;
 import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
 import com.mtt.service.request.UpdateTaskRequest;
@@ -52,6 +53,8 @@ public class DashBoardControllerTest {
 
     private ConversionService conversionService;
 
+    private CacheExampleService cacheExampleService;
+
     @Before
     public void init() {
         controller = new DashBoardController();
@@ -64,6 +67,7 @@ public class DashBoardControllerTest {
         bindingResult = mock(BindingResult.class);
         mttSession = mock(MTTSession.class);
         conversionService = mock(ConversionService.class);
+        cacheExampleService = mock(CacheExampleService.class);
         ReflectionTestUtils.setField(controller, "userService", userService);
         ReflectionTestUtils.setField(controller, "taskService", taskService);
         ReflectionTestUtils.setField(controller, "authenticatedUserSession", authenticatedUserSession);
@@ -71,6 +75,7 @@ public class DashBoardControllerTest {
         ReflectionTestUtils.setField(controller, "validator", validator);
         ReflectionTestUtils.setField(controller, "mttSession", mttSession);
         ReflectionTestUtils.setField(controller, "conversionService", conversionService);
+        ReflectionTestUtils.setField(controller, "cacheExampleService", cacheExampleService);
     }
 
     @Test

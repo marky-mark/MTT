@@ -8,6 +8,7 @@ import com.mtt.domain.entity.User;
 import com.mtt.domain.exception.TaskNotFoundException;
 import com.mtt.error.json.JsonValidationResponse;
 import com.mtt.security.AuthenticatedUserSession;
+import com.mtt.service.CacheExampleService;
 import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
 import com.mtt.service.request.CreateTaskRequest;
@@ -85,6 +86,9 @@ public final class DashBoardController extends BaseController {
     @Autowired
     private ConversionService conversionService;
 
+    @Autowired
+    private CacheExampleService cacheExampleService;
+
     /**
      * get the dashboard page
      * @param request http
@@ -94,6 +98,9 @@ public final class DashBoardController extends BaseController {
     public ModelAndView showPage(HttpServletRequest request) {
 
         Map<String, Object> map = new HashMap<String, Object>();
+
+        //test the cache
+        cacheExampleService.cacheStrings();
 
         User user = userService.find(authenticatedUserSession.getUsername());
 

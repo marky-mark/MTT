@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
-    <diskStore path="java.io.tmpdir/gumtree-bushfire-seller/cache/core"/>
+    <diskStore path="java.io.tmpdir/mtt/cache/core"/>
 
     <defaultCache
             maxElementsInMemory="100"
@@ -13,5 +13,10 @@
            <!--maxElementsInMemory="10000"-->
            <!--eternal="true"-->
            <!--overflowToDisk="false"/>-->
+
+    <cache name="cacheStringsMethod"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false"/>
 
 </ehcache>
