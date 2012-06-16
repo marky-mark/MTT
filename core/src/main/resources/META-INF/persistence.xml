@@ -9,6 +9,9 @@
         <class>com.mtt.domain.entity.UserActivationKey</class>
         <properties>
             <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.cache.region.factory_class" value="net.sf.ehcache.hibernate.EhCacheRegionFactory"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="net.sf.ehcache.configurationResourceName" value="/META-INF/ehcache-jpa.xml"/>
         </properties>
     </persistence-unit>
 </persistence>

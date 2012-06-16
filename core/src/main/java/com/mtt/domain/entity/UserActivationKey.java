@@ -4,6 +4,7 @@ import com.mtt.service.KeyGeneratorService;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +21,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "usr_activation_key")
+@Cacheable
 public class UserActivationKey {
 
     private static final int ACTIVE_DAYS = 14;

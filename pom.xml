@@ -30,6 +30,8 @@
 
         <jackson.version>1.9.2</jackson.version>
 
+        <ehcache.version>2.3.2</ehcache.version>
+
         <integration.jdbc.driver>org.h2.Driver</integration.jdbc.driver>
         <integration.jdbc.driver>org.h2.Driver</integration.jdbc.driver>
         <integration.jdbc.url>jdbc:h2:mem:integration-test;MODE=MySQL</integration.jdbc.url>
@@ -395,6 +397,16 @@
                 <groupId>org.subethamail</groupId>
                 <artifactId>subethasmtp</artifactId>
                 <version>3.1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache-core</artifactId>
+                <version>${ehcache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.ehcache-spring-annotations</groupId>
+                <artifactId>ehcache-spring-annotations</artifactId>
+                <version>1.1.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
