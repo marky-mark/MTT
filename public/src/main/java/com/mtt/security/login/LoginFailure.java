@@ -5,6 +5,7 @@ import com.mtt.error.ReportableErrors;
 import com.mtt.exception.MissingPasswordException;
 import com.mtt.exception.MissingUsernameAndPasswordException;
 import com.mtt.exception.MissingUsernameException;
+import com.mtt.exception.UserIsNotActiveException;
 import com.mtt.exception.UserNotRecognizedException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -47,6 +48,12 @@ public enum LoginFailure implements ReportableErrors {
         public void report(ErrorReporter errorReporter) {
             errorReporter.globalError("Unknown reason - this is reported, please try again later");
         }
+    },
+    USER_NOT_ACTIVE() {
+        @Override
+        public void report(ErrorReporter errorReporter) {
+            errorReporter.fieldError(usernameField, "User is not active");
+        }
     };
 
     private static final String usernameField = "username";
@@ -63,6 +70,8 @@ public enum LoginFailure implements ReportableErrors {
             return NO_PASSWORD;
         } else if (ex.getClass().equals(MissingUsernameAndPasswordException.class)) {
             return NO_USERNAME_PASSWORD;
+        } else if (ex.getClass().equals(UserIsNotActiveException.class)) {
+            return USER_NOT_ACTIVE;
         }
 
         return UNKNOWN;

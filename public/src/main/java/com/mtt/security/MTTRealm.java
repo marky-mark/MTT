@@ -1,11 +1,13 @@
 package com.mtt.security;
 
 import com.mtt.domain.entity.User;
+import com.mtt.domain.entity.UserStatus;
 import com.mtt.domain.exception.IncorrectPasswordException;
 import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.exception.MissingPasswordException;
 import com.mtt.exception.MissingUsernameAndPasswordException;
 import com.mtt.exception.MissingUsernameException;
+import com.mtt.exception.UserIsNotActiveException;
 import com.mtt.exception.UserNotRecognizedException;
 import com.mtt.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -39,6 +41,11 @@ public final class MTTRealm extends AuthenticatingRealm {
             throw new IncorrectCredentialsException();
         } catch (RuntimeException e) {
             throw new AuthenticationException(e);
+        }
+
+        //make sure the user is active
+        if (!user.getStatus().equals(UserStatus.ACTIVE)) {
+            throw new UserIsNotActiveException();
         }
 
         UserAuthenticationInfo authenticationInfo = new UserAuthenticationInfo();
