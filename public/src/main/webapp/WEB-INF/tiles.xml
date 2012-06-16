@@ -33,4 +33,8 @@
         <put-attribute name="body" value="/WEB-INF/jsp/register-confirmation.jsp"/>
     </definition>
 
+    <definition name="activate" extends="baseDefinition">
+        <put-attribute name="body" value="/WEB-INF/jsp/activate.jsp"/>
+    </definition>
+
 </tiles-definitions>

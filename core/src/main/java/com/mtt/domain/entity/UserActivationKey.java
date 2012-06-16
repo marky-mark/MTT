@@ -53,6 +53,10 @@ public class UserActivationKey {
         return new DateTime(expiryDate);
     }
 
+    public boolean isExpired() {
+       return new DateTime().isAfter(getExpiryDate());
+    }
+
     public User getUser() {
         return user;
     }
