@@ -14,6 +14,7 @@
         <module>public</module>
         <module>test</module>
         <module>common</module>
+        <module>acceptance-tests</module>
     </modules>
 
     <properties>
@@ -29,7 +30,7 @@
         <mtt.jdbc.password>mtt</mtt.jdbc.password>
 
         <jackson.version>1.9.2</jackson.version>
-
+        <cucumber.jvm.version>1.0.4</cucumber.jvm.version>
         <ehcache.version>2.3.2</ehcache.version>
 
         <integration.jdbc.driver>org.h2.Driver</integration.jdbc.driver>
@@ -408,6 +409,26 @@
                 <artifactId>ehcache-spring-annotations</artifactId>
                 <version>1.1.2</version>
             </dependency>
+            <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>${cucumber.jvm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.jvm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.jvm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.jvm.version}</version>
+        </dependency>
         </dependencies>
     </dependencyManagement>
 
