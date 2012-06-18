@@ -2,9 +2,10 @@
 Feature: As a user i would like to register with the Site
 
   Scenario: I am a user that does not enter any data into the First name field
-    Given a user enters nothing into the first name field
-    When the user makes an API call to create a user
-    Then authentication should fail for first name field
+    Given the user is on the registration page
+    And a user enters nothing into the first name field
+#    When the user makes an API call to create a user
+#    Then authentication should fail for first name field
 
 #  Scenario: I am a user that does not enter any data into the Last name field
 #    Given a user enters nothing into the last name field
