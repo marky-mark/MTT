@@ -390,9 +390,9 @@
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
-              <groupId>org.freemarker</groupId>
-              <artifactId>freemarker</artifactId>
-              <version>2.3.16</version>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.16</version>
             </dependency>
             <dependency>
                 <groupId>org.subethamail</groupId>
@@ -410,25 +410,25 @@
                 <version>1.1.2</version>
             </dependency>
             <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-core</artifactId>
-            <version>${cucumber.jvm.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.jvm.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>${cucumber.jvm.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-spring</artifactId>
-            <version>${cucumber.jvm.version}</version>
-        </dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-core</artifactId>
+                <version>${cucumber.jvm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.jvm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-junit</artifactId>
+                <version>${cucumber.jvm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-spring</artifactId>
+                <version>${cucumber.jvm.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
