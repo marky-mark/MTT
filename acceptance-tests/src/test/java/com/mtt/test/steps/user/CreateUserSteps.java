@@ -2,6 +2,8 @@ package com.mtt.test.steps.user;
 
 import cucumber.annotation.After;
 import cucumber.annotation.Before;
+import cucumber.annotation.en.Given;
+import org.subethamail.wiser.Wiser;
 
 public class CreateUserSteps {
 
@@ -9,7 +11,6 @@ public class CreateUserSteps {
 
     @Before("@create-user-fixture")
     public synchronized void init() {
-        userTester = new HttpClientUserTester(apiHost, new DefaultHttpClient(new ThreadSafeClientConnManager()));
         wiser = new Wiser();
         wiser.setPort(2500);
         wiser.start();
@@ -21,5 +22,11 @@ public class CreateUserSteps {
             wiser.stop();
             wiser = null;
         }
+    }
+
+    @Given("a user enters (.*?) into the (.*?) field")
+    public void givenUserEntersAValueIntoField(String value, String fieldName) {
+
+
     }
 }

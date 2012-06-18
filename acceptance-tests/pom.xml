@@ -60,5 +60,13 @@
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>test</artifactId>
+        </dependency>
     </dependencies>
 </project>

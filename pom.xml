@@ -30,7 +30,7 @@
         <mtt.jdbc.password>mtt</mtt.jdbc.password>
 
         <jackson.version>1.9.2</jackson.version>
-        <cucumber.jvm.version>1.0.4</cucumber.jvm.version>
+        <cucumber.jvm.version>1.0.9</cucumber.jvm.version>
         <ehcache.version>2.3.2</ehcache.version>
 
         <integration.jdbc.driver>org.h2.Driver</integration.jdbc.driver>
