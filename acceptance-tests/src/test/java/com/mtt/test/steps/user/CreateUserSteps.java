@@ -99,5 +99,7 @@ public class CreateUserSteps {
     @Then("^the user is brought to the success page$")
     public void broughtToTheSuccessPage() {
         successRegistrationPage = webStepDefs.createPage(SuccessRegistrationPage.class);
+        assertThat(successRegistrationPage.getSuccessText(), equalTo("An Email has been sent to mkelly2@gmail.com click on the link to activate the account."));
+        assertThat(wiser.getMessages().size(), equalTo(1));
     }
 }
