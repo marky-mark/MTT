@@ -40,71 +40,28 @@ public abstract class BaseForm {
      * @param driver the {@link org.openqa.selenium.WebDriver} representing the registration page.
      */
     protected void buildFormComponents(WebDriver driver) {
-        List<WebElement> fieldElements = driver.findElements(By.xpath("//div[contains(@class,\"form-component\")]"));
 
-        for (WebElement element : fieldElements) {
-            // TODO: This is a bit of a hack but can't find any easier way of doing it.
-            WebElement input;
+        WebElement formElement = driver.findElement(By.xpath("//form[@id='" + getFormName() + "']"));
 
-            try {
-                input = element.findElement(By.tagName("input"));
-            } catch (NoSuchElementException nsee) {
-                try {
-                    input = element.findElement(By.tagName("textarea"));
-                } catch (NoSuchElementException nseeInner) {
-                    input = element.findElement(By.tagName("select"));
-                }
-            }
+        List<WebElement> inputElements = formElement.findElements(By.tagName("input"));
 
-            String fieldName = input.getAttribute("name");
+        for (WebElement element : inputElements) {
+            String inputName = element.getAttribute("name");
 
-            if (containsTextField(element)) {
-                String error = getFieldError(element);
-                textFields.put(fieldName, new WebTextField(input, error != null, error));
-            } else if (containsCheckbox(element)) {
-                checkBoxes.put(fieldName, new WebCheckBox(input));
-            } else if(containsDropDownSelectBox(element)) {
-                dropDownSelectBoxes.put(fieldName,new WebDropDownSelect(element));
+            if (element.getAttribute("type").equals("text") || element.getAttribute("type").equals("password")) {
+                WebElement errorElement = formElement.findElement(By.id(inputName + "-error"));
+                textFields.put(inputName, new WebTextField(element, !errorElement.getText().equals(""), errorElement.getText()));
+            } else if (element.getAttribute("type").equals("submit") ) {
+                submitButton = element;
             }
         }
 
-        submitButton = driver.findElement(By.name(getSubmitButtonName()));
+        List<WebElement> textAreaElements = formElement.findElements(By.tagName("textarea"));
+        List<WebElement> selectElements = formElement.findElements(By.tagName("select"));
+
     }
 
-    private boolean containsTextField(WebElement element) {
-        return element.getAttribute("class").contains("form-text")
-                || element.getAttribute("class").contains("form-password")
-                || element.getAttribute("class").contains("form-input");
-    }
-
-    private boolean containsCheckbox(WebElement element) {
-        return element.getAttribute("class").contains("form-checkbox");
-    }
-
-    private boolean containsDropDownSelectBox(WebElement element) {
-        return element.getAttribute("class").contains("form-select");
-    }
-
-    private String getFieldError(WebElement element) {
-        WebElement label = element.findElement(By.tagName("label"));
-
-        try {
-
-            WebElement errorElement = label.findElement(By.className("error"));
-
-            if (errorElement != null) {
-                String errorText = errorElement.getText();
-                return element.getAttribute("class").contains("form-component-error")
-                        && StringUtils.hasLength(errorText) ? errorText : null;
-            }
-
-        } catch (NoSuchElementException e) {
-            LOGGER.debug("no error message found");
-        }
-        return null;
-    }
-
-        /**
+    /**
      * Submit the form.
      */
     public void submit() {

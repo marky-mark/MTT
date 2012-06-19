@@ -30,9 +30,9 @@
     <!--Set the database to H2-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
         <property name="driverClass" value="${mtt.jdbc.driver:org.h2.Driver}"/>
-        <property name="url" value="${mtt.jdbc.url:jdbc:h2:~/.mtt/db/seller;AUTO_SERVER=TRUE;MODE=MySQL}"/>
-        <!--<property name="username" value="${mtt.jdbc.username:mtt}"/>-->
-        <!--<property name="password" value="${mtt.jdbc.username:mtt}"/>-->
+        <property name="url" value="${mtt.jdbc.url:jdbc:h2:~/.mtt/db/mtt;AUTO_SERVER=TRUE;MODE=MySQL}"/>
+        <property name="username" value="${mtt.jdbc.username:mtt}"/>
+        <property name="password" value="${mtt.jdbc.username:mtt}"/>
     </bean>
 
     <!--Fixtures for individual test DB injections-->

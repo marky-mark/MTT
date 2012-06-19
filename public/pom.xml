@@ -48,8 +48,8 @@
                             <systemProperties>
                                 <mtt.jdbc.driver>org.h2.Driver</mtt.jdbc.driver>
                                 <mtt.jdbc.url>jdbc:h2:~/.mtt/db/mtt;AUTO_SERVER=TRUE;MODE=MySQL</mtt.jdbc.url>
-                                <!--<mtt.jdbc.username>mtt</mtt.jdbc.username>-->
-                                <!--<mtt.jdbc.password>mtt</mtt.jdbc.password>-->
+                                <mtt.jdbc.username>mtt</mtt.jdbc.username>
+                                <mtt.jdbc.password>mtt</mtt.jdbc.password>
                                 <!-- Important that emails are sent synchronously so we can capture in tests -->
                                 <mtt.emailSender.synchronous>true</mtt.emailSender.synchronous>
                                 <!--Set to 2500, as we start up Wiser to mock an SMTP server, runs on same port-->

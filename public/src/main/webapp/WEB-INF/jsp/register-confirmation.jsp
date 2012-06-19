@@ -1,1 +1,1 @@
-An Email has been sent to ${emailAddress} click on the link to activate the account.
+<div id="success-message">An Email has been sent to ${emailAddress} click on the link to activate the account.</div>

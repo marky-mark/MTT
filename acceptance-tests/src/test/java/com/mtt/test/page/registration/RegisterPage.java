@@ -9,11 +9,15 @@ public class RegisterPage extends BasePage {
 
     @Override
     protected String getPageTitle() {
-        return "MTT Test";
+        return "MTT Registration";
     }
 
     @Override
     protected void initInternal(WebDriver driver) {
-//        registerForm = new RegisterForm(driver);
+        registerForm = new RegisterForm(driver);
+    }
+
+    public RegisterForm getRegisterForm() {
+        return registerForm;
     }
 }

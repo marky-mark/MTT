@@ -1,64 +1,37 @@
 @create-user-fixture
 Feature: As a user i would like to register with the Site
 
-  Scenario: I am a user that does not enter any data into the First name field
-    Given the user is on the registration page
-    And a user enters nothing into the first name field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for first name field
+  Scenario Outline: I am a user that enters in invalid data into a field on the registration form
 
-#  Scenario: I am a user that does not enter any data into the Last name field
-#    Given a user enters nothing into the last name field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for last name field
-#
-#  Scenario: I am a user that does not enter any data into the password field
-#    Given a user enters nothing into the password field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for password field
-#
-#  Scenario: I am a user that does not enter any data into the confirmed password field
-#    Given a user enters nothing into the confirmed password field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for confirmed password field
-#
-#  Scenario: I am a user that does not enter any data into the email address field
-#    Given a user enters nothing into the email address field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for email address field
-#
-#  Scenario: I am a user that does not enter any data into the confirmed email address field
-#    Given a user enters nothing into the confirmed email address field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for confirmed email address field
-#
-#  Scenario: I am a user does not enter any data into the phone number field
-#    Given a user enters nothing into the telephone number field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for telephone number field
-#
-#  Scenario: I am a user does not enter any data into the ip address field
-#    Given a user enters nothing into the ip address field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for ip address field
-#
-#  Scenario: I am a user that enters less than 6 characters for the password field
-#    Given a user enters less than 6 characters for the password field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for password field
-#
-#  Scenario: I am a user that enters a non matching confirmed password field
-#    Given a user enters a non matching confirmed password field
-#    When the user makes an API call to create a user
-#    Then authentication should fail for confirmed password field
-#
-#  Scenario: I am a user that specifies valid data for registration
-#    Given a user enters all valid data
-#    When the user makes an API call to create a user
-#    Then a user should be created with no validation failures
-#    And an activation email should be sent to the user
-#
-#  Scenario: I am a user that tries to use an email address already registered
-#    Given a user enters all valid data
-#    When the user makes an API call to create a user
-#    Then authentication should fail for email address field
+    Given the user is on the registration page
+    And a user enters <input> into the <field> field
+    When the user submits the form
+    Then the user is returned to the registration page
+    And the <field> field error will be "<error>"
+
+  Examples: Validation examples
+
+    | field                       | input                  | error                            |
+    | firstName                   | nothing                | must have a first name           |
+    | firstName                   | <html>                 | no html is allowed               |
+    | firstName                   | 12345678910            | must have certain length         |
+    | lastName                    | nothing                | must have a last name            |
+    | lastName                    | <html>                 | no html is allowed               |
+    | lastName                    | 12345678910            | must have a certain length       |
+    | emailAddress                | nothing                | email is missing                 |
+    | emailAddress                | <html>                 | not a valid email                |
+    | emailAddress                | 12345678910            | not a valid email                |
+    | emailAddress                | mkelly@gmail.com       | email already exists             |
+    | confirmedEmailAddress       | mkelly28@gmail.com     | email addresses foes not match   |
+    | password                    | nothing                | password is missing              |
+    | password                    | 12345678910            | password max length              |
+    | password                    | password               | nothing                          |
+    | confirmedPassword           | nothing                | please confirm your password     |
+    | confirmedPassword           | password2              | passwords do not match           |
+
+  Scenario: A User Enters in Valid data which brings the user to the success page
+
+    Given the user is on the registration page
+    And a user enters valid data into the fields
+    When the user submits the form
+    Then the user is brought to the success page

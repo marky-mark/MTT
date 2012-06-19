@@ -26,10 +26,12 @@
     </definition>
 
     <definition name="register" extends="baseDefinition">
+        <put-attribute name="headerTitle" cascade="true" expression="MTT Registration"/>
         <put-attribute name="body" value="/WEB-INF/jsp/register.jsp"/>
     </definition>
 
     <definition name="register-confirmation" extends="baseDefinition">
+        <put-attribute name="headerTitle" cascade="true" expression="MTT Registration Confirmation"/>
         <put-attribute name="body" value="/WEB-INF/jsp/register-confirmation.jsp"/>
     </definition>
 

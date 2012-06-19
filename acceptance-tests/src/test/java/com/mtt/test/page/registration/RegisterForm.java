@@ -11,11 +11,11 @@ public class RegisterForm extends BaseForm {
 
     @Override
     protected String getSubmitButtonName() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return "register-user";
     }
 
     @Override
     protected String getFormName() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return "register-form";
     }
 }
