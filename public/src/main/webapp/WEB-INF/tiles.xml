@@ -18,10 +18,12 @@
     </definition>
 
     <definition name="login" extends="baseDefinition">
+        <put-attribute name="headerTitle" cascade="true" expression="MTT Login"/>
         <put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>
     </definition>
 
     <definition name="dashboard" extends="baseDefinition">
+        <put-attribute name="headerTitle" cascade="true" expression="MTT Dashboard"/>
         <put-attribute name="body" value="/WEB-INF/jsp/dashboard.jsp"/>
     </definition>
 

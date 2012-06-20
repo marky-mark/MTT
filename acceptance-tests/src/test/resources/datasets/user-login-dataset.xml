@@ -1,0 +1,6 @@
+<dataset>
+    <!--Password is 123456-->
+    <usr id="1" usrname="mkelly@gmail.com" passwrd="JHoHflkTCYnC5S4/7aXTrjKp2/a2SYLNpDy/iWiDHcQ=" status="AWAITING_ACTIVATION" first_name="mark" last_name="kelly"/>
+    <!--Password is markkelly-->
+    <usr id="2" usrname="mkelly28@gmail.com" passwrd="DXfUuD95f4FKT2rT6lAn5hMEVZoS0kpqb31DMdGUFo4=" status="ACTIVE" first_name="mk" last_name="28"/>
+</dataset>

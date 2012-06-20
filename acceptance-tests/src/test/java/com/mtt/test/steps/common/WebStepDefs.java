@@ -32,6 +32,10 @@ public class WebStepDefs {
         driver = null;
     }
 
+    public void clearCookies() {
+        driver.manage().deleteAllCookies();
+    }
+
     public void get(String relativePath) {
         driver.get(urlFactory.createRequestUrl(relativePath));
     }

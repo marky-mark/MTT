@@ -2,6 +2,7 @@ package com.mtt.test.page;
 
 import com.mtt.test.page.components.WebCheckBox;
 import com.mtt.test.page.components.WebDropDownSelect;
+import com.mtt.test.page.components.WebTextArea;
 import com.mtt.test.page.components.WebTextField;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -20,6 +21,8 @@ public abstract class BaseForm {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseForm.class);
 
     protected Map<String, WebTextField> textFields = new HashMap<String, WebTextField>();
+
+    protected Map<String, WebTextArea> textAreas = new HashMap<String, WebTextArea>();
 
     protected Map<String, WebCheckBox> checkBoxes = new HashMap<String, WebCheckBox>();
 
@@ -43,8 +46,8 @@ public abstract class BaseForm {
 
         WebElement formElement = driver.findElement(By.xpath("//form[@id='" + getFormName() + "']"));
 
+        //Get all the "input" tags of the form
         List<WebElement> inputElements = formElement.findElements(By.tagName("input"));
-
         for (WebElement element : inputElements) {
             String inputName = element.getAttribute("name");
 
@@ -56,7 +59,14 @@ public abstract class BaseForm {
             }
         }
 
+        //Get all the "textarea"
         List<WebElement> textAreaElements = formElement.findElements(By.tagName("textarea"));
+        for (WebElement element : textAreaElements) {
+            String inputName = element.getAttribute("name");
+            WebElement errorElement = formElement.findElement(By.id(inputName + "-error"));
+            textAreas.put(inputName, new WebTextArea(element, !errorElement.getText().equals(""), errorElement.getText()));
+        }
+
         List<WebElement> selectElements = formElement.findElements(By.tagName("select"));
 
     }

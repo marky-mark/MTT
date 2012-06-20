@@ -3,6 +3,7 @@ package com.mtt.security;
 import com.mtt.domain.entity.User;
 import com.mtt.domain.entity.UserStatus;
 import com.mtt.domain.exception.IncorrectPasswordException;
+import com.mtt.domain.exception.UserNotActiveException;
 import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.exception.MissingPasswordException;
 import com.mtt.exception.MissingUsernameAndPasswordException;
@@ -39,13 +40,10 @@ public final class MTTRealm extends AuthenticatingRealm {
             throw new UserNotRecognizedException();
         } catch (IncorrectPasswordException e) {
             throw new IncorrectCredentialsException();
+        } catch (UserNotActiveException e) {
+            throw new UserIsNotActiveException();
         } catch (RuntimeException e) {
             throw new AuthenticationException(e);
-        }
-
-        //make sure the user is active
-        if (!user.getStatus().equals(UserStatus.ACTIVE)) {
-            throw new UserIsNotActiveException();
         }
 
         UserAuthenticationInfo authenticationInfo = new UserAuthenticationInfo();

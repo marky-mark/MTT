@@ -14,18 +14,18 @@
 <h2>Please Login</h2>
 
 <div>
-    <form class="update" action="/login" method="POST">
+    <form id="login-form" class="update" action="/login" method="POST">
 
         <fieldset>
             <div class="text-field">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" name="title" size="${titleSize}"/>
-                <div><span class="error"><c:if test="${e:hasError(errors, 'username')}">${e:getError(errors,'username')}</c:if></span></div>
+                <div><span id="username-error" class="error"><c:if test="${e:hasError(errors, 'username')}">${e:getError(errors,'username')}</c:if></span></div>
             </div>
             <div class="text-field">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" name="title" size="${titleSize}"/>
-                <div><span class="error"><c:if test="${e:hasError(errors, 'password')}">${e:getError(errors,'password')}</c:if></span></div>
+                <div><span id="password-error" class="error"><c:if test="${e:hasError(errors, 'password')}">${e:getError(errors,'password')}</c:if></span></div>
             </div>
         </fieldset>
         <div id="remember-me">

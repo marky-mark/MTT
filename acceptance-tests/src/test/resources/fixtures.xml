@@ -10,4 +10,9 @@
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
+    <bean id="userLoginDataSet" class="com.mtt.fixtures.DbUnitFixture">
+        <constructor-arg value="classpath:/datasets/user-login-dataset.xml"/>
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
 </beans>

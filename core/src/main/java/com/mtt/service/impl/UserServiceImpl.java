@@ -4,6 +4,7 @@ import com.mtt.domain.entity.User;
 import com.mtt.domain.entity.UserStatus;
 import com.mtt.domain.exception.IncorrectPasswordException;
 import com.mtt.domain.exception.UserAlreadyExistsException;
+import com.mtt.domain.exception.UserNotActiveException;
 import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.repository.UserRepository;
 import com.mtt.service.UserService;
@@ -47,6 +48,11 @@ public final class UserServiceImpl implements UserService {
     @Override
     public User authenticate(String username, String plainTextpassword) {
         User user = find(username);
+
+        //make sure the user is active
+        if (!user.getStatus().equals(UserStatus.ACTIVE)) {
+            throw new UserNotActiveException();
+        }
 
         if(user.verifyPassword(plainTextpassword)) {
             return user;
