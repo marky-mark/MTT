@@ -63,4 +63,8 @@
         <property name="shared" value="true"/>
     </bean>
 
+    <bean id="testproperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:testProps.properties"/>
+    </bean>
+
 </beans>

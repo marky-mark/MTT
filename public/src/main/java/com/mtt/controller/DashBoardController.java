@@ -16,6 +16,7 @@ import com.mtt.service.request.UpdateTaskRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,7 @@ import javax.validation.Valid;
 import javax.validation.Validator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import static com.mtt.controller.DashBoardController.PAGE_PATH;
@@ -88,6 +90,11 @@ public final class DashBoardController extends BaseController {
 
     @Autowired
     private CacheExampleService cacheExampleService;
+
+    //Test a Properties file loaded in
+    @Autowired
+    @Qualifier("testproperties") //Qualifier specifies the name of the bean to wire up
+    private Properties testpropertiesFile;
 
     /**
      * get the dashboard page
