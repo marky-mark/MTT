@@ -2,6 +2,7 @@ package com.mtt.service;
 
 import com.mtt.domain.entity.TestUtils;
 import com.mtt.domain.entity.User;
+import com.mtt.domain.entity.UserStatus;
 import com.mtt.domain.exception.IncorrectPasswordException;
 import com.mtt.domain.exception.UserNotFoundException;
 import com.mtt.repository.UserRepository;
@@ -74,6 +75,7 @@ public class UserServiceTest {
     public void testVerifyPasswordIncorrectCredentials() {
         User userToReturn = TestUtils.createUser(1L);
         userToReturn.setPassword("nonHashedPasswordWillNeverMatch");
+        userToReturn.setStatus(UserStatus.ACTIVE);
         when(userRepository.findByUserName("mark")).thenReturn(userToReturn);
 
         userService.authenticate("mark", "password");
@@ -84,6 +86,7 @@ public class UserServiceTest {
         User userToReturn = TestUtils.createUser(1L);
         userToReturn.setUsername("mark");
         userToReturn.setPassword("password");
+        userToReturn.setStatus(UserStatus.ACTIVE);
         when(userRepository.findByUserName("mark")).thenReturn(userToReturn);
 
         User returned = userService.authenticate("mark", "password");
