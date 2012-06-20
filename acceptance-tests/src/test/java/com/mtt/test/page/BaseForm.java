@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +36,10 @@ public abstract class BaseForm {
         this.globalErrorMessage = getGlobalError(driver);
     }
 
-     /**
+    protected BaseForm() {
+    }
+
+    /**
      * This method attempts to extract the text fields and checkBoxes that make up the registration form.
      *
      * @param driver the {@link org.openqa.selenium.WebDriver} representing the registration page.
@@ -49,11 +51,13 @@ public abstract class BaseForm {
         //Get all the "input" tags of the form
         List<WebElement> inputElements = formElement.findElements(By.tagName("input"));
         for (WebElement element : inputElements) {
-            String inputName = element.getAttribute("name");
+            String inputName = element.getAttribute("id");
 
             if (element.getAttribute("type").equals("text") || element.getAttribute("type").equals("password")) {
                 WebElement errorElement = formElement.findElement(By.id(inputName + "-error"));
                 textFields.put(inputName, new WebTextField(element, !errorElement.getText().equals(""), errorElement.getText()));
+            } else if (element.getAttribute("type").equals("checkbox")) {
+                checkBoxes.put(inputName, new WebCheckBox(element));
             } else if (element.getAttribute("type").equals("submit") ) {
                 submitButton = element;
             }
@@ -62,12 +66,12 @@ public abstract class BaseForm {
         //Get all the "textarea"
         List<WebElement> textAreaElements = formElement.findElements(By.tagName("textarea"));
         for (WebElement element : textAreaElements) {
-            String inputName = element.getAttribute("name");
+            String inputName = element.getAttribute("id");
             WebElement errorElement = formElement.findElement(By.id(inputName + "-error"));
             textAreas.put(inputName, new WebTextArea(element, !errorElement.getText().equals(""), errorElement.getText()));
         }
 
-        List<WebElement> selectElements = formElement.findElements(By.tagName("select"));
+//        List<WebElement> selectElements = formElement.findElements(By.tagName("select"));
 
     }
 
@@ -92,6 +96,10 @@ public abstract class BaseForm {
 
     public WebTextField getTextField(String fieldName) {
         return textFields.get(fieldName);
+    }
+
+    public WebTextArea getTextArea(String fieldName) {
+        return textAreas.get(fieldName);
     }
 
     public WebCheckBox getCheckBox(String fieldName) {

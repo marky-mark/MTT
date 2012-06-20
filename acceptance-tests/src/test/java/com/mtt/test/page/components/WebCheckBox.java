@@ -19,7 +19,7 @@ public class WebCheckBox implements WebFormComponent {
             return checked;
         }
 
-        return inputElement.isSelected();
+        return inputElement.getAttribute("checked") != null;
     }
 
     public void setChecked(boolean checked) {

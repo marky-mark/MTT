@@ -15,4 +15,9 @@
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
+    <bean id="dashboardDataSet" class="com.mtt.fixtures.DbUnitFixture">
+        <constructor-arg value="classpath:/datasets/dashboard-dataset.xml"/>
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
 </beans>

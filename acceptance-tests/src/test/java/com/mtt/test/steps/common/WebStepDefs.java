@@ -3,8 +3,10 @@ package com.mtt.test.steps.common;
 import com.mtt.test.UrlFactory;
 import com.mtt.test.WebDriverFactory;
 import com.mtt.test.page.BasePage;
+import com.mtt.test.page.login.LoginPage;
 import cucumber.annotation.After;
 import cucumber.annotation.Before;
+import cucumber.annotation.en.Given;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,6 +32,17 @@ public class WebStepDefs {
         driver.manage().deleteAllCookies();
         driver.quit();
         driver = null;
+    }
+
+    @Given("^the user is logged in as (.*?) with the password (.*?)$")
+    public LoginPage loginAs(String username, String password) {
+        get("/login");
+        createPage(LoginPage.class);
+        ((LoginPage)currentPage).getLoginForm().getTextField("username").setValue(username);
+        ((LoginPage)currentPage).getLoginForm().getTextField("password").setValue(password);
+        ((LoginPage)currentPage).getLoginForm().submit();
+
+        return ((LoginPage)currentPage);
     }
 
     public void clearCookies() {

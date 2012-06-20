@@ -13,7 +13,7 @@
 
 <%--Display a Task--%>
 <div id="text-task-${id}">
-    <form action="/dashboard" method="POST" >
+    <form action="/dashboard" method="POST" id="display-task-${id}-form">
         <input type="hidden" name="taskId" value="${id}"/>
         <input id="checked_${id}" name="checked" type="checkbox" value="true" <c:if test="${isChecked == true}">checked="checked" </c:if> onclick="this.form.submit();" />
     </form>
@@ -28,7 +28,7 @@
 </div>
 
 <%--Edit a Task--%>
-<div id="text-task-${id}-edit" hidden="true">
+<div id="text-task-${id}-edit" hidden="true" name="display-task-div">
     <form class="update" action="/dashboard" method="POST" id="update-task-${id}-form">
         <input id="checked_${id}" name="checked" type="checkbox" value="true" <c:if test="${isChecked== true}">checked="checked"</c:if> />
         ${date} <div>Title <input type="text" id="title_${id}" name="title" size="${titleSize}" onblur="validateUpdateBean(['title'],${id});" <c:choose><c:when test="${s:hasTaskBean(mttSession, id)}"> value="${s:getTaskBean(mttSession, id).title}"></c:when><c:otherwise> value="${title}"></c:otherwise></c:choose></div>
