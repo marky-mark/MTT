@@ -12,8 +12,10 @@ import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
 import com.mtt.service.request.CreateTaskRequest;
 import com.mtt.service.request.UpdateTaskRequest;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.validation.BindingResult;
@@ -26,8 +28,10 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -92,6 +96,11 @@ public class DashBoardControllerTest {
         assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
         assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
 
+        //argument capture example - makes sure a method is called with specific variables
+        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
+        verify(userService).find(argumentCaptor.capture());
+        Assert.assertThat(argumentCaptor.getValue(), is("mark"));
+
     }
 
     @Test
@@ -105,11 +114,21 @@ public class DashBoardControllerTest {
         createTaskBean.setTitle("title");
 
         when(validator.validate(createTaskBean)).thenReturn(new HashSet<ConstraintViolation<CreateTaskBean>>());
+
+        when(conversionService.convert(createTaskBean, CreateTaskRequest.class)).thenReturn(new CreateTaskRequest("title", "hello",1L));
+
         ModelAndView modelAndView = controller.createTask(createTaskBean);
 
         assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));
         assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
         assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
+
+        //argument capture
+        ArgumentCaptor<CreateTaskRequest> argumentCaptor = ArgumentCaptor.forClass(CreateTaskRequest.class);
+        verify(taskService).create(argumentCaptor.capture());
+        assertThat(argumentCaptor.getValue().getTitle(), equalTo("title"));
+        assertThat(argumentCaptor.getValue().getDescription(), equalTo("hello"));
+        assertThat(argumentCaptor.getValue().getUserId(), equalTo(1L));
     }
 
     @Test

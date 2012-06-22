@@ -8,6 +8,15 @@ public class CreateTaskRequest {
 
     private Long userId;
 
+    public CreateTaskRequest() {
+    }
+
+    public CreateTaskRequest(String title, String description, Long userId) {
+        this.title = title;
+        this.description = description;
+        this.userId = userId;
+    }
+
     public String getTitle() {
         return title;
     }
