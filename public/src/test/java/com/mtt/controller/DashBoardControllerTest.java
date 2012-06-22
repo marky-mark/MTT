@@ -10,6 +10,7 @@ import com.mtt.security.AuthenticatedUserSession;
 import com.mtt.service.CacheExampleService;
 import com.mtt.service.TaskService;
 import com.mtt.service.UserService;
+import com.mtt.service.request.CreateTaskRequest;
 import com.mtt.service.request.UpdateTaskRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.lang.reflect.Method;
 import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -219,6 +221,22 @@ public class DashBoardControllerTest {
         assertThat(modelAndView.getViewName(), equalTo(DashBoardController.VIEW_NAME));
         assertThat(modelAndView.getModel().containsKey(DashBoardController.TASKS_MODEL_NAME), equalTo(true));
         assertThat(modelAndView.getModel().containsKey(DashBoardController.USER_MODEL_NAME), equalTo(true));
+    }
+
+    @Test
+    public void testPrivateConversion() throws Exception {
+
+        Class<?> controllerClass = controller.getClass();
+
+        //get a private method and make it accessible to test
+        Method method = controllerClass.getDeclaredMethod("convert", Long.class, CreateTaskBean.class);
+        method.setAccessible(true);
+
+        CreateTaskRequest createTaskRequest = (CreateTaskRequest) method.invoke(controller, 1L, new CreateTaskBean("title test", "test description"));
+
+        assertThat(createTaskRequest.getUserId(), equalTo(1L));
+        assertThat(createTaskRequest.getTitle(), equalTo("title test"));
+        assertThat(createTaskRequest.getDescription(), equalTo("test description"));
     }
 
 }

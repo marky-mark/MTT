@@ -17,6 +17,14 @@ public class CreateTaskBean {
     @NotHtml(message = "task description cannot contain html tags")
     private String description;
 
+    public CreateTaskBean() {
+    }
+
+    public CreateTaskBean(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
     public String getTitle() {
         return title;
     }
