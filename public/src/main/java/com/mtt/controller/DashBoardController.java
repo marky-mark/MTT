@@ -1,5 +1,6 @@
 package com.mtt.controller;
 
+import com.mtt.api.client.TestAPI;
 import com.mtt.bean.CreateTaskBean;
 import com.mtt.bean.MTTSession;
 import com.mtt.cookies.CookieService;
@@ -90,6 +91,9 @@ public final class DashBoardController extends BaseController {
 
     @Autowired
     private CacheExampleService cacheExampleService;
+
+    @Autowired
+    private TestAPI testAPI;
 
     //Test a Properties file loaded in
     @Autowired

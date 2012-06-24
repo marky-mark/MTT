@@ -63,7 +63,43 @@
                     </execution>
                 </executions>
             </plugin>
+
+<!--NOTE: BELOW IS CARGO...SIMILAR TO TOMCAT-MAVEN-PLUGIN-->
+
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.cargo</groupId>-->
+                <!--<artifactId>cargo-maven2-plugin</artifactId>-->
+                <!--<version>1.1.1</version>-->
+                <!--<configuration>-->
+                    <!--<container>-->
+                        <!--<containerId>tomcat6x</containerId>-->
+                        <!--<zipUrlInstaller>-->
+                            <!--<url>-->
+                                <!--http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.32/bin/apache-tomcat-6.0.32.zip-->
+                            <!--</url>-->
+                        <!--</zipUrlInstaller>-->
+                        <!--<systemProperties>-->
+                                <!--<mtt.jdbc.driver>org.h2.Driver</mtt.jdbc.driver>-->
+                                <!--<mtt.jdbc.url>jdbc:h2:~/.mtt/db/mtt;AUTO_SERVER=TRUE;MODE=MySQL</mtt.jdbc.url>-->
+                                <!--<mtt.jdbc.username>mtt</mtt.jdbc.username>-->
+                                <!--<mtt.jdbc.password>mtt</mtt.jdbc.password>-->
+                                <!--&lt;!&ndash; Important that emails are sent synchronously so we can capture in tests &ndash;&gt;-->
+                                <!--<mtt.emailSender.synchronous>true</mtt.emailSender.synchronous>-->
+                                <!--&lt;!&ndash;Set to 2500, as we start up Wiser to mock an SMTP server, runs on same port&ndash;&gt;-->
+                                <!--<mtt.mail.smtp.port>2500</mtt.mail.smtp.port>-->
+                        <!--</systemProperties>-->
+                    <!--</container>-->
+                    <!--<configuration>-->
+                        <!--<properties>-->
+                            <!--<cargo.servlet.port>8181</cargo.servlet.port>-->
+                            <!--<cargo.tomcat.ajp.port>8012</cargo.tomcat.ajp.port>-->
+                        <!--</properties>-->
+                    <!--</configuration>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
+
+        <finalName>ROOT-${project.version}</finalName>
     </build>
 
     <!--The Below ensures that this application is only fired up when -Dgumtree.test.acceptance=true-->
@@ -240,6 +276,10 @@
         <dependency>
             <groupId>com.googlecode.ehcache-spring-annotations</groupId>
             <artifactId>ehcache-spring-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mtt.testapi</groupId>
+            <artifactId>client</artifactId>
         </dependency>
     </dependencies>
 
