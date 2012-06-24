@@ -8,7 +8,7 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <name>acceptance tests</name>
     <artifactId>acceptance-tests</artifactId>
 
     <build>
@@ -26,7 +26,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <skip>false</skip>
+                  <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
