@@ -67,8 +67,4 @@
         <property name="location" value="classpath:testProps.properties"/>
     </bean>
 
-    <bean id="testApi" class="com.mtt.api.client.impl.RemoteTestApiFactoryBean">
-        <property name="baseUri" value="${mtt.api.host:http://localhost:9080/api}"/>
-    </bean>
-
 </beans>

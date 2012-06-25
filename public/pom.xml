@@ -277,10 +277,6 @@
             <groupId>com.googlecode.ehcache-spring-annotations</groupId>
             <artifactId>ehcache-spring-annotations</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.mtt.testapi</groupId>
-            <artifactId>client</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
