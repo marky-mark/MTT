@@ -12,7 +12,9 @@ import com.mtt.service.request.CreateTaskRequest;
 import com.mtt.service.request.UpdateTaskRequest;
 import org.joda.time.DateTime;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class TaskServiceTest {
     private TaskRepository taskRepository;
 
     private UserRepository userRepository;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void init() {
@@ -116,13 +121,18 @@ public class TaskServiceTest {
         assertThat(returned, equalTo(taskToReturn));
     }
 
-    @Test(expected = TaskNotFoundException.class)
+    @Test//(expected = TaskNotFoundException.class)
     public void testUpdateAdIdNotFound() {
-        when(taskRepository.findOne(1L)).thenReturn(null);
+
+        expectedException.expect(TaskNotFoundException.class);
+        expectedException.expectMessage("the id 100 was not found" );
+
+        when(taskRepository.findOne(100L)).thenReturn(null);
 
         UpdateTaskRequest updateTaskRequest = new UpdateTaskRequest();
         updateTaskRequest.setDescription("helllo");
         updateTaskRequest.setChecked(true);
+        updateTaskRequest.setId(100L);
 
         taskService.update(updateTaskRequest);
     }
