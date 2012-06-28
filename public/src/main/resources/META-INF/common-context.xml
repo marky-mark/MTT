@@ -13,6 +13,13 @@
 
     <mvc:annotation-driven/>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.mtt.context.MTTPageContextInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <context:component-scan base-package="com.mtt.controller"/>
     <context:component-scan base-package="com.mtt.converter"/>
 
