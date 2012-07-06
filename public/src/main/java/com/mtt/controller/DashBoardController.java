@@ -1,5 +1,6 @@
 package com.mtt.controller;
 
+import com.mtt.MTTPage;
 import com.mtt.bean.CreateTaskBean;
 import com.mtt.bean.MTTSession;
 import com.mtt.cookies.CookieService;
@@ -39,11 +40,13 @@ import java.util.Properties;
 import java.util.Set;
 
 import static com.mtt.controller.DashBoardController.PAGE_PATH;
+import static com.mtt.controller.DashBoardController.PAGE_TYPE;
 
 /**
  * DashBoard Controller for a user to view his/her tasks
  * In addition to be able to delete and create tasks
  */
+@MTTPage(PAGE_TYPE)   //This is picked by an MTTPageInterceptor on the way out
 @Controller
 @RequestMapping(value = PAGE_PATH)
 public final class DashBoardController extends BaseController {
@@ -51,6 +54,8 @@ public final class DashBoardController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DashBoardController.class);
 
     public static final String PAGE_PATH = "/dashboard";
+
+    public static final String PAGE_TYPE = "Annotation_Test";
 
     public static final String VIEW_NAME = "dashboard";
 
