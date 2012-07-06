@@ -1,0 +1,9 @@
+•	download " https://github.com/mkelly-gt/MTT"
+•Create a database called "mtt" in mysql, with a username "mtt" with a password "mtt" (make sure has sufficient privaleges)
+•Using Apache Maven 2, at the base of the project, go into the folder called db
+•	Execute 'mvn clean compile'
+•	Execute 'mvn liquibase:update'
+•go 1 directory back (cd ..) and execute 'mvn clean package'....the war is now built
+•	put the public.war file in the webapps folder of tomcat
+•	start up tomcat .../etc/init.d/tomcat start (There are all defaults so no need for application.properties unless you want to)
+•	Default user of “test” with password “abc123” can be used for login…go to “/login”
